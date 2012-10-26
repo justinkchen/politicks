@@ -7,7 +7,7 @@
 <div data-role="footer" data-position="fixed">
 	<div data-role="navbar">
 		<ul>
-			<li><a href="options.php" data-icon="gear" data-theme="a">Settings</a></li>
+			<li><a href="index.php" data-icon="home" data-theme="a">Home</a></li>
 			<li><a href="politicians.php" id="politicians" data-icon="custom" data-theme="a">Politicians</a></li>
 			<li><a href="nearby.php" id="nearby" data-icon="custom" data-theme="a">Nearby</a></li>
 			<li><a href="newissue.php" data-icon="plus" data-theme="a">Add Issue</a></li>
