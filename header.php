@@ -13,16 +13,17 @@ session_start();
 </head> 
 <body> 
 
-	<div data-role="page" data-theme="b" data-content-theme="b">
-	<div data-role="header" data-position="fixed">
-		<div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-			<a href="index.php" data-role="button" data-icon="home">Home</a>
-			<a href="info.php" data-role="button" data-icon="info">Info</a>
-		</div>
-		<h1>Politicks</h1>
-		<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-			<a href="search.php" data-role="button" data-icon="search">Search</a>
-		</div>
+<div data-role="page" data-theme="b" data-content-theme="b" id="one">
+<div data-role="header" data-position="fixed">
+	<div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+		<a href="javascript:history.go(-1)" data-role="button" data-icon="back">Back</a>
 	</div>
+	<h1>Politicks</h1>
+	<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+		<a href="index.php" data-role="button" data-icon="home" data-iconpos="notext"></a>
+		<a href="info.php" data-role="button" data-icon="info" data-iconpos="notext"></a>
+		<a href="search.php" data-role="button" data-icon="search" data-iconpos="notext"></a>
+	</div>
+</div>
 
 	<!-- /content goes here -->
