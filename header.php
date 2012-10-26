@@ -14,16 +14,15 @@ session_start();
 <body> 
 
 	<div data-role="page" data-theme="b" data-content-theme="b">
-	<div data-role="header">
-		<a href="index.php" data-icon="home" class="ui-btn-left">Home</a>
+	<div data-role="header" data-position="fixed">
+		<div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+			<a href="index.php" data-role="button" data-icon="home">Home</a>
+			<a href="info.php" data-role="button" data-icon="info">Info</a>
+		</div>
 		<h1>Politicks</h1>
-		<a href="index.php" data-icon="gear" class="ui-btn-right">Options</a>
-		<div data-role="navbar">
-		<ul>
-			<li><a href="a.html">Info</a></li>
-			<li><a href="b.html">Friends</a></li>
-			<li><a href="c.html">Albums</a></li>
-			<li><a href="d.html">Emails</a></li>
-		</ul>
-	</div><!-- /navbar -->
+		<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+			<a href="search.php" data-role="button" data-icon="search">Search</a>
+		</div>
 	</div>
+
+	<!-- /content goes here -->
