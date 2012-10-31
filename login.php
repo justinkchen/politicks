@@ -26,7 +26,10 @@
 		<input type="text" name="username" id="basic" data-mini="true" />
 		<label for="basic">Password:</label>
 		<input type="password" name="password" id="basic" data-mini="true" />
-		<input type="submit" value="Login" data-theme="b"></input>
+		<fieldset class="ui-grid-a">
+			<div class="ui-block-a"><button type="submit" data-theme="a">Login</button></div>
+			<div class="ui-block-b"><button type="submit" data-theme="b">Signup</button></div>
+	    </fieldset></button></div></button></div></fieldset>
 	</form>	
 	<?php
 		}
