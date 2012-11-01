@@ -2,6 +2,7 @@
 	<!-- /header -->
 
 	<div data-role="content">	
+
 		<div data-role="navbar">
 		<ul>
 			<li><a href="#" data-theme="c">Featured</a></li>
@@ -33,7 +34,7 @@
 
 <div data-role="content">
 		<div class="content-primary">	
-		<ul data-role="listview" data-split-icon="arrow-r" data-theme="c" data-split-theme="d">
+		<ul data-role="listview" data-split-icon="arrow-r" data-theme="c" data-split-theme="d" data-filter="true" data-filter-placeholder="Search Issues...">
 			<?= $issues; ?>
 		</ul>
 

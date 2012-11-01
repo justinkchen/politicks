@@ -22,7 +22,7 @@ require_once("config.php");
 	<h1>Politicks</h1>
 	<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		<a href="options.php" data-role="button" data-icon="gear" data-iconpos="notext"></a>
-		<a href="search.php" data-role="button" data-icon="search" data-iconpos="notext"></a>
+		<!--<a href="search.php" data-role="button" data-icon="search" data-iconpos="notext"></a>-->
 	</div>
 </div>
 
