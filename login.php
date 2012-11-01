@@ -28,7 +28,7 @@ if (isset($_SESSION["username"]) && !is_null($_SESSION["username"]) || (isset($_
 		<input type="password" name="password" id="basic" data-mini="true" />
 		<fieldset class="ui-grid-a">
 			<div class="ui-block-a"><button type="submit" data-theme="a">Login</button></div>
-			<div class="ui-block-b"><a href='http://google.com'><button type="button" data-theme="b">Signup</button></a></div>
+			<div class="ui-block-b"><a href='http://google.com' data-role="button" data-theme="b">Signup</a></div>
 		</fieldset></button></div></button></div></fieldset>
 	</form>	
 	<p><a href='google.com'>Don't have an account? Sign up!</a>blahblah</p>
