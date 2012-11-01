@@ -1,9 +1,8 @@
 <?php
-$host="localhost:8888"; // Host name 
+$host="localhost"; // Host name 
 $username="root"; // Mysql username 
 $password="root"; // Mysql password 
-$db_name="cs147"; // Database name 
-$tbl_name="users"; // Table name 
+$db_name="politicks"; // Database name 
 
 // Connect to server and select databse.
 $link = mysql_connect("$host", "$username", "$password");
