@@ -15,9 +15,6 @@
 	</div>
 
 </div><!-- /page -->
-
+<?php mysql_close(); ?>
 </body>
 </html>
-<?php
-mysql_close()
-?>
