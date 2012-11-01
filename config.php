@@ -1,12 +1,18 @@
 <?php
-$host="localhost:8080"; // Host name 
+$host="localhost"; // Host name 
 $username="root"; // Mysql username 
 $password="root"; // Mysql password 
 $db_name="politicks"; // Database name 
 $tbl_name="users"; // Table name 
 
 // Connect to server and select databse.
-mysql_connect("$host", "$username", "$password")or die("cannot connect"); 
-//mysql_select_db("$db_name")or die("cannot select DB");
+$link = mysql_connect("$host", "$username", "$password");
+if ($link){
+	//echo "Connected to MySQL<br />";
+}else{
+	die('Could not connect: ' . mysql_error());
+}
+
+mysql_select_db("$db_name")or die("cannot select DB");
 
 ?>
