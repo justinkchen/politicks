@@ -12,65 +12,29 @@
 		<p> Welcome to Politicks! Your resource for making change in the world! </p>
 
 		<br />
+
+<?php
+	$sql = "select *, issues.name as iname, categories.name as cname from issues,categories where issues.category = categories.id";
+	$result = mysql_query($sql);
+	$issues = "";
+	while ($row=mysql_fetch_array($result)) { 
+	    $id = $row["id"]; 
+	    $name = $row["iname"]; 
+	    $description = $row["description"];
+	    $icon = $row["icon"];
+	    $issues .= "<li><a href=\"issues.php\">".
+				"<img src=\"".$icon."\" />".
+				"<h3>".$name."</h3>".
+				"<p>".$description."</p>".
+				"</a>".
+				"</li>"; 
+	} 
+?>
+
 <div data-role="content">
 		<div class="content-primary">	
 		<ul data-role="listview" data-split-icon="arrow-r" data-theme="c" data-split-theme="d">
-			<li><a href="issues.php">
-				<img src="images/icons/52-pine-tree.png" />
-				<h3>Stop polluting pond.</h3>
-				<p>tristique rutrum aliquet</p>
-				</a>
-			</li>
-			<li><a href="issues.php">
-				
-				<img src="images/icons/113-navigation.png"  />
-				<h3>Need more teachers.</h3>
-				<p>Htristique rutrum</p>
-				</a>
-			</li>
-			<li><a href="issues.php">
-				<img src="images/icons/52-pine-tree.png" />
-				<h3>Duis sed risus non leo auctor adipiscing</h3>
-				<p>Phoenix</p>
-				</a>
-			</li>
-			<li><a href="issues.php">
-				<img src="images/icons/10-medical.png" />
-				<h3>Vivamus ut justo sem, et varius felis.</h3>
-				<p>Ok Go</p>
-				</a>
-			</li>
-			<li><a href="issues.php">
-				<img src="images/icons/140-gradhat.png" />
-				<h3>Proin nec velit eros, ac pellentesque odio.</h3>
-				<p>The White Stripes</p>
-				</a>
-			</li>
-			<li><a href="issues.php">
-				<img src="images/icons/52-pine-tree.png" />
-				<h3>Cras posuere nisl imperdiet turpis tempus porta.</h3>
-				<p>MGMT</p>
-				</a>
-			</li>
-			<li><a href="issues.php">
-				<img src="images/icons/10-medical.png" />
-				<h3>Morbi posuere ligula eget felis lacinia mattis.</h3>
-				<p>A Sunny Day in Glasgow</p>
-				</a>
-			</li>
-			
-			<li><a href="issues.php">
-				<img src="images/icons/10-medical.png" />
-				<h3>Nulla sit amet nisi quam, id vestibulum neque.</h3>
-				<p>Killers</p>
-				</a>
-			</li>
-			<li><a href="issues.php">	
-				<img src="images/icons/140-gradhat.png" />
-				<h3>Cras quis odio libero, ac dictum dui.</h3>
-				<p>Arcade Fire</p>
-				</a>
-			</li>
+			<?= $issues; ?>
 		</ul>
 
 		<br />
@@ -79,7 +43,7 @@
 		<input type="hidden" name="logout" value="true" />
 
 		<input type="submit" value="Logout" data-theme="a"></input>
-
+		</form>
 		<br />
 
 		<style>	

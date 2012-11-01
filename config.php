@@ -13,6 +13,6 @@ if ($link){
 	die('Could not connect: ' . mysql_error());
 }
 
-mysql_select_db("$db_name")or die("cannot select DB");
+mysql_select_db("$db_name")or die("Cannot select DB");
 
 ?>

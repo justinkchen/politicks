@@ -22,10 +22,10 @@ if (isset($_SESSION["username"]) && !is_null($_SESSION["username"]) || (isset($_
 }else{         
 ?>
 	<form action="index.php" method="post">
-		<label for="basic">Username:</label>
-		<input type="text" name="username" id="basic" data-mini="true" />
-		<label for="basic">Password:</label>
-		<input type="password" name="password" id="basic" data-mini="true" />
+		<label for="username">Username:</label>
+		<input type="text" name="username" id="username" data-mini="true" />
+		<label for="password">Password:</label>
+		<input type="password" name="password" id="password" data-mini="true" />
 		<fieldset class="ui-grid-a">
 			<div class="ui-block-a"><button type="submit" data-theme="a">Login</button></div>
 			<div class="ui-block-b"><a href='http://google.com' data-role="button" data-theme="b">Signup</a></div>
