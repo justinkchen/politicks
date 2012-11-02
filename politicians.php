@@ -3,6 +3,9 @@
 
 	<div data-role="content">	
 <?php
+	checkLogin();
+?>
+<?php
 	$query = "select * from politicians";
 	$result = mysql_query($query);
 	$politicians = "";

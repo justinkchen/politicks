@@ -3,6 +3,9 @@
 
 	<div data-role="content">	
 <?php
+	checkLogin();
+?>
+<?php
 	if(isset($_GET["id"])){
 		$query = sprintf("select * from politicians where id='%s'",mysql_real_escape_string($_GET["id"]));
 		$result = mysql_query($query);
