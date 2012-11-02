@@ -24,10 +24,7 @@
 				<td>
 					<table>
 					<tr><td>
-						<a href="payments.php" data-role="button" data-theme="b">Fund</a>
-					</td></tr>
-					<tr><td>
-						<a href="#" data-role="button" data-theme="c">Support</a>
+						<a href="payments.php" data-role="button" data-theme="b">Donate</a>
 					</td></tr>
 					</table>
 				</td>
