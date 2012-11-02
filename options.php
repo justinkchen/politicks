@@ -6,7 +6,7 @@
 
 		<h1>Options</h1>
 		<form action="#" method="post">
-		<div data-role="fieldcontain" class="ui-hide-label">
+		<div data-role="fieldcontain">
 		<label for="username">Username:</label>
 		<input type="text" name="username" id="username" value="<?= $_SESSION["username"]; ?>" placeholder="Username"/>
 		</div>
@@ -22,7 +22,7 @@
 		</fieldset>
 
 		<fieldset class="ui-grid-a">
-			<div class="ui-block-a"><button type="submit" data-theme="c">Cancel</button></div>
+			<div class="ui-block-a"><a href="index.php" data-role="button" data-theme="c">Cancel</a></div>
 			<div class="ui-block-b"><button type="submit" data-theme="b">Save</button></div>	   
 		</fieldset>
 		</form>
