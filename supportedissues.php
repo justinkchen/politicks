@@ -1,11 +1,10 @@
-<?php
-	require_once("login.functions.inc.php");
-	checkLogin();
-?>
 <?php include_once("header.php") ?>
 	<!-- /header -->
 
 	<div data-role="content">	
+		<?php
+			checkLogin();
+		?>
 		<div data-role="navbar">
 		<ul>
 			<li><a href="index.php" data-theme="c">Featured</a></li>
@@ -18,9 +17,9 @@
 
 <?php
 	if(isset($_GET["category"])){
-		$query = sprintf("select *, issues.id as iid, issues.name as iname from issues, categories, usersToIssues where issues.category_id = '%s' and categories.id = '%s' and issues.id = usersToIssues.issue_id and usersToIssues.user_id = '%s'", mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_SESSION["userid"]));
+		$query = sprintf("select *, issues.id as iid, issues.name as iname from issues, categories, userstoissues where issues.category_id = '%s' and categories.id = '%s' and issues.id = userstoissues.issue_id and userstoissues.user_id = '%s'", mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_SESSION["userid"]));
 	}else{
-		$query = sprintf("select *, issues.id as iid, categories.id as cid, issues.name as iname, categories.name as cname from issues,categories, usersToIssues where issues.category_id = categories.id and issues.id = usersToIssues.issue_id and usersToIssues.user_id = '%s'", mysql_real_escape_string($_SESSION["userid"]));
+		$query = sprintf("select *, issues.id as iid, categories.id as cid, issues.name as iname, categories.name as cname from issues,categories, userstoissues where issues.category_id = categories.id and issues.id = userstoissues.issue_id and userstoissues.user_id = '%s'", mysql_real_escape_string($_SESSION["userid"]));
 	}
 	$result = mysql_query($query);
 	$issues = "";
