@@ -3,7 +3,7 @@
 
 <div data-role="content">	
 <?php checkLogin(); ?>
-	
+
 <?php 
 $titleErr = $categoryErr = $descriptionErr = "";
 $title = $description = "";
@@ -29,6 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		$query = sprintf("insert into issues (name, description, category_id, user_id) values ('%s','%s', %s, %s)", mysql_real_escape_string($_POST["title"]), mysql_real_escape_string($_POST["description"]), mysql_real_escape_string($_POST["category"]), mysql_real_escape_string($_SESSION["userid"]));
 		if(mysql_query($query)){
 			$status = "Successfully added the issue! You're one step closer to making a difference!";
+			$title = $description = "";
+			$category = "none";
 		}else{
 			$status = "Creation failed due to database problems. Please try again.";
 		}

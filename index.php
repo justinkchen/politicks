@@ -27,8 +27,10 @@
 <?php
 	if(isset($_GET["category"])){
 		$query = sprintf("select *, issues.id as iid, issues.name as iname from issues, categories where issues.category_id = '%s' and categories.id = '%s'", mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_GET["category"]));
+		$output = "<a href=\"index.php\" data-role=\"button\" data-theme=\"b\">View All Issues</a>";
 	}else{
 		$query = "select *, issues.id as iid, categories.id as cid, issues.name as iname, categories.name as cname from issues,categories where issues.category_id = categories.id";
+		$output = "";
 	}
 	$result = mysql_query($query);
 	$issues = "";
@@ -80,6 +82,7 @@
 			</ul>
 			</div>
 		</div>
+		<?= $output; ?>
 		</div>
 	</div><!-- /content -->
 

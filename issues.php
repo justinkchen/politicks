@@ -51,7 +51,17 @@
 
 		<a href="#" data-role="button" data-theme="c">Leave a Comment</a>
 
-		<a href="solution.php?issue_id=<?= $_GET["id"]; ?>" data-role="button">Show Proposed Solution</a>
+<?php
+	$query = sprintf("select * from proposedsolutions where issue_id='%s'",mysql_real_escape_string($_GET["id"]));
+	$result = mysql_query($query);
+	$row = mysql_fetch_array($result);
+	if (mysql_num_rows($result)){
+		$output = "<a href=\"solution.php?issue_id=".$_GET['id']."\" data-role=\"button\">Show Proposed Solution</a>";
+	}else{
+		$output = "<center>No Proposed Solutions yet</center>";
+	}
+?>
+		<?= $output; ?>
 	</div><!-- /content -->
 
 
