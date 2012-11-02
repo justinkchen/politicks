@@ -2,6 +2,19 @@
 	<!-- /header -->
 
 	<div data-role="content">	
+
+<?php
+	if(isset($_GET["id"])){
+		$query = sprintf("select * from issues where id='%s'",mysql_real_escape_string($_GET["id"]));
+		$result = mysql_query($query);
+		$row = mysql_fetch_array($result);
+		if(mysql_num_rows($result) == 0){
+			header("Location: index.php");
+		}
+	}else{
+		header("Location: index.php");
+	}
+?>
 		<table width="100%">
 			<tr>
 				<td>
@@ -10,13 +23,13 @@
 				<td>
 					<table>
 					<tr><td>
-						<b>Sed ut erat in lorem sagittis tempor sit amet at felis.</b>
+						<b><?= $row["name"]; ?></b>
 					</td></tr>
 					<tr><td>
-						$5000.12 raised
+						$<?= number_format($row["funding"],2); ?> raised
 					</td></tr>
 					<tr><td>
-						232 supporters
+						<?= $row["likes"]; ?> supporters
 					</td></tr>
 					</table>
 				</td>
@@ -33,16 +46,7 @@
 
 		<h1>Description</h1>
 		<p>
-			Pellentesque consectetur augue non quam blandit vehicula.
-			Fusce cursus laoreet tellus, vitae iaculis lacus tincidunt ultrices.
-			Vestibulum non mi tortor, sed posuere tellus.
-			Nulla sit amet sem at lacus pretium fringilla.
-			Sed et lacus turpis, sit amet aliquet nisi.
-			Aenean et magna ut risus tincidunt pellentesque.
-			Proin tristique pellentesque ligula, a eleifend lorem aliquam ut.
-			Vivamus ut ligula quis turpis blandit ullamcorper.
-			Fusce semper purus eget augue luctus consectetur.
-			Pellentesque eu risus lacus, a semper dui.
+			<?= $row["description"]; ?>
 		</p>
 
 		<a href="#" data-role="button" data-theme="c">Leave a Comment</a>

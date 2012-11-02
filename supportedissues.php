@@ -3,14 +3,6 @@
 
 	<div data-role="content">	
 <?php
-	if ($_SERVER["REQUEST_METHOD"] == "POST"){
-		$uname = $pword = "";
-		if (isset($_POST["username"]) && isset($_POST["password"])){
-			$uname = $_POST["username"];
-			$pword = $_POST["password"];
-		}
-		verifyLogin($uname, $pword);
-	}
 	checkLogin();
 ?>
 		<div data-role="navbar">
@@ -20,15 +12,14 @@
 			<li><a href="createdissues.php" data-theme="c">Created</a></li>
 		</ul>
 		</div><!-- /navbar -->
-		<h3> Welcome to Politicks! <br /> Your resource for making change in the world! </h3>
 
 		<br />
 
 <?php
 	if(isset($_GET["category"])){
-		$query = sprintf("select *, issues.id as iid, issues.name as iname from issues, categories where issues.category_id = '%s' and categories.id = '%s'", mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_GET["category"]));
+		$query = sprintf("select *, issues.id as iid, issues.name as iname from issues, categories, usersToIssues where issues.category_id = '%s' and categories.id = '%s' and issues.id = usersToIssues.issue_id and usersToIssues.user_id = '%s'", mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_SESSION["userid"]));
 	}else{
-		$query = "select *, issues.id as iid, categories.id as cid, issues.name as iname, categories.name as cname from issues,categories where issues.category_id = categories.id";
+		$query = sprintf("select *, issues.id as iid, categories.id as cid, issues.name as iname, categories.name as cname from issues,categories, usersToIssues where issues.category_id = categories.id and issues.id = usersToIssues.issue_id and usersToIssues.user_id = '%s'", mysql_real_escape_string($_SESSION["userid"]));
 	}
 	$result = mysql_query($query);
 	$issues = "";
@@ -55,7 +46,7 @@
 	$result = mysql_query($query);
 	while ($row=mysql_fetch_array($result)){
 		$issuesgridstyle .= "#".$row["name"]." .ui-icon { background:  url(".$row["icon"].") 50% 50% no-repeat; background-size: 26px 26px; }";
-		$issuesgrid .= "<li><a href=\"index.php?category=".$row["id"]."\" id=\"".$row["name"]."\" data-icon=\"custom\" data-theme=\"c\">".$row["name"]."</a></li>";
+		$issuesgrid .= "<li><a href=\"supportedissues.php?category=".$row["id"]."\" id=\"".$row["name"]."\" data-icon=\"custom\" data-theme=\"c\">".$row["name"]."</a></li>";
 	}
 ?>
 
