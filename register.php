@@ -1,14 +1,15 @@
 <?php include_once("header.php") ?>
 
 <?php
+$status = "";
+$firstErr = "";
+$lastErr = "";
+$userErr = "";
+$emailErr = "";
+$password1Err = "";
+$passwordMatchErr = "";
+$first = $last = $user = $email = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$firstErr = "";
-	$lastErr = "";
-	$userErr = "";
-	$emailErr = "";
-	$password1Err = "";
-	$passwordMatchErr = "";
-
 	if (empty($_POST["first"])) {
 		$firstErr = "Please enter a first name";
 	} else {
@@ -35,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if ($_POST["password1"] != $_POST["password2"]) {
 		$passwordMatchErr = "Your passwords do not match";
 	} 
-	if ($firstErr == "" && $lastErr == "" && $userErr == "" && $email == "" && $password1Err == "" && $passwordMatchError == "") {
+	if ($firstErr == "" && $lastErr == "" && $userErr == "" && $emailErr == "" && $password1Err == "" && $passwordMatchError == "") {
 		$userUniq = sprintf("select username from users where username = '%s'", mysql_real_escape_string($user));
 		$result = mysql_query($userUniq);
 		if(mysql_num_rows($result) > 0) {
@@ -47,14 +48,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$emailErr = "An account with this e-mail address already exists";
 		}
 		if ($userErr == "" && $emailErr == "") {
-			$query = sprintf("insert into users (name, username, email, password_hash) values ('%s', '%s', '%s', '%s')", mysql_real_escape_string($first . $last), mysql_real_escape_string($user), mysql_real_escape_string($email), mysql_real_escape_string(hashPassword($password1)));
-			header("Location: login.php");
+			$query = sprintf("insert into users (name, username, email, password_hash) values ('%s', '%s', '%s', '%s')", mysql_real_escape_string($first." ".$last), mysql_real_escape_string($user), mysql_real_escape_string($email), hashPassword($_POST["password1"]));
+			if(mysql_query($query)){
+				header("Location: login.php?status=regsuccess");
+			}else{
+				$status = "Error inserting information into database";
+			}
 		}
 	}
 }
 ?>
 
 <div data-role="content">
+	<span class="status"><?= $status; ?></span>
 	<form action="register.php" method="post">
 		<div data-role="fieldcontain">
 			<label for="first">First Name:</label>
@@ -82,10 +88,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			<span class="error"><?php echo $password1Err;?></span>
 		</div>
 		<div data-role="fieldcontain">
-			<label for="password2">Retype Password:</label>
+			<label for="password2">Re-type Password:</label>
 			<input type="password" name="password2" id="password2" value="" />
 			<span class="error"><?php echo $passwordMatchErr;?></span>
 		</div>
 		<input type="submit" value="Create Account"></input>
 	</form>
 </div>
+
+<?php include_once("footer.php") ?>

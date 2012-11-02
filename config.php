@@ -2,7 +2,7 @@
 $host="localhost"; // Host name 
 $username="root"; // Mysql username 
 $password="root"; // Mysql password 
-$db_name="cs147"; // Database name 
+$db_name="politicks"; // Database name 
 
 require_once("functions.inc.php");
 

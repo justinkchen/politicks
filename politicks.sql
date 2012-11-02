@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 02, 2012 at 06:00 AM
+-- Generation Time: Nov 02, 2012 at 10:01 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -55,7 +55,15 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `user_id` int(11) NOT NULL,
   `issue_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `message`, `user_id`, `issue_id`) VALUES
+(1, 'Cool issue!', 1, 2),
+(2, 'Yea I don''t really think so...', 6, 2);
 
 -- --------------------------------------------------------
 
@@ -73,14 +81,14 @@ CREATE TABLE IF NOT EXISTS `issues` (
   `user_id` int(11) NOT NULL,
   `image` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `issues`
 --
 
 INSERT INTO `issues` (`id`, `name`, `description`, `funding`, `likes`, `category_id`, `user_id`, `image`) VALUES
-(1, 'Stop polluting pond', 'The pond is getting dirty.  People are littering all over the place and dumptrucks are leaving their messes right next to the pond.  Trash, Inc. is not following city regulations and something needs to be done about it.', 0, 0, 1, 1, ''),
+(1, 'Stop polluting pond', 'The pond is getting dirty.  People are littering all over the place and dumptrucks are leaving their messes right next to the pond.  Trash, Inc. is not following city regulations and something needs to be done about it.', 372.51, 2, 1, 1, ''),
 (2, 'City needs to lower emissions', 'Cars emitting too many harmful chemicals', 0, 0, 1, 1, ''),
 (3, 'Hire more teachers', 'Our highschool needs more teachers', 0, 0, 4, 1, ''),
 (4, 'Work hard, Play harder...', 'We need children to work hard and play harder!', 0, 0, 4, 1, ''),
@@ -148,14 +156,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password_hash` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`,`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password_hash`) VALUES
-(1, 'Justin Chen', 'test', 'test@test.com', '$2a$15$06ZmA..97dsDPKNSucflDeWNoRAXhQfrlw9wKrDg.83gO3hV6ffea');
+(1, 'Justin Chen', 'test', 'test@test.com', '$2a$05$50XdpiUF2XduHiR5MjvwB.FtMcv2P.wNewQftZHLoyVZvgZfBQQUa'),
+(6, 'Justin Chen', 'justinkchen', 'justinkchen@stanford.edu', '$2a$05$50XdpiUF2XduHiR5MjvwB.FtMcv2P.wNewQftZHLoyVZvgZfBQQUa');
 
 -- --------------------------------------------------------
 
@@ -175,7 +184,8 @@ CREATE TABLE IF NOT EXISTS `userstoissues` (
 
 INSERT INTO `userstoissues` (`user_id`, `issue_id`) VALUES
 (1, 1),
-(1, 3);
+(1, 3),
+(6, 1);
 
 -- --------------------------------------------------------
 

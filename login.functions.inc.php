@@ -6,7 +6,7 @@ function verifyLogin($username, $password){
   $num_results = mysql_num_rows($result);
   $row = mysql_fetch_assoc($result);
 
-  $bcrypt = new Bcrypt(15);
+  $bcrypt = new Bcrypt(5);
   if ($num_results == 1 && $bcrypt->verify($password,$row["password_hash"])){
     login($username);
     return true;
@@ -26,7 +26,7 @@ function checkLogin(){
 }
 
 function hashPassword($password){
-  $bcrypt = new Bcrypt(15);
+  $bcrypt = new Bcrypt(5);
   return $bcrypt->hash($password);
 }
 
@@ -66,7 +66,6 @@ class Bcrypt {
 
   public function verify($input, $existingHash) {
     $hash = crypt($input, $existingHash);
-
     return $hash === $existingHash;
   }
 

@@ -22,12 +22,17 @@
 		$result = mysql_query($query);
 		$totalcount = 0;
 		while ($row=mysql_fetch_array($result)){
-			$query = sprintf("select * from proposedsolutions where politician_id='%s' and category_id='%s'", $id, $row["id"]);
+			$query = sprintf("select * from proposedsolutions where politician_id='%s' and category_id='%s'", mysql_real_escape_string($id), mysql_real_escape_string($row["id"]));
 			$countresult = mysql_query($query);
 			$count = mysql_num_rows($countresult);
 			$totalcount += $count;
 			$issuesgridstyle .= "#".$row["name"]." .ui-icon { background:  url(".$row["icon"].") 50% 50% no-repeat; background-size: 26px 26px; }";
 			$issuesgrid .= "<li><a href=\"politicianissues.php?pid=".$_GET['id']."&cid=".$row['id']."\" id=\"".$row["name"]."\" data-icon=\"custom\" data-theme=\"c\">".$count." ".$row['name']."</a></li>";
+		}
+
+		if(isset($_POST["follow"])){
+			$query = sprintf("insert into userstopoliticians (politician_id, user_id) values ('%s', '%s')", mysql_real_escape_string($_GET['id']), mysql_real_escape_string($_SESSION['userid']));
+			mysql_query($query);
 		}
 	}else{
 		header("Location: politicians.php");
@@ -51,7 +56,19 @@
 
 				<td>
 					<p align="right">
-					<a href="#" data-role="button">Follow</a>
+					<?php
+						$q = sprintf("select * from userstopoliticians where politician_id='%s' and user_id='%s'", mysql_real_escape_string($id), mysql_real_escape_string($_SESSION["userid"]));
+						$result = mysql_query($q);
+						if(mysql_num_rows($result) == 0){
+							$output = 	"<input type=\"submit\" value=\"Follow\"></input>";
+						}else{
+							$output = 	"<a href=\"#\" class=\"ui-disabled\" data-role=\"button\">Followed</a>";
+						}
+					?>
+					<form action="politicianprofile.php?id=<?=$_GET['id'];?>" method="post">
+						<input type="hidden" name="follow" value="true" />
+						<?= $output; ?>
+					</form>
 					</p>
 				</td>
 			</tr>

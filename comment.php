@@ -14,13 +14,13 @@
 		header("Location: index.php");
 	}
 ?>	
-		<h1>Payments</h1>
+		<h1>Leave a Comment</h1>
 		<form action="issues.php?id=<?=$_GET['id'];?>" method="post">
-		<label for="ccard">Credit Card:</label>
-		<input type="text" name="ccard" id="ccard" data-mini="true" placeholder="e.g. 1111-1111-1111-1111" />
-		<label for="amount">Amount to Fund:</label>
-		<input type="text" name="amount" id="amount" data-mini="true" placeholder="e.g. 50.00"/>
-		<input type="submit" value="Confirm Payment"></input>
+			<div data-role="fieldcontain">
+				<label for="comment">Description:</label>
+				<textarea name="comment" id="comment" style="height: 100px;"></textarea>
+			</div>
+			<input type="submit" value="Submit Comment"></input>
 		</form>
 	</div><!-- /content -->
 
