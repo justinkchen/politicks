@@ -12,7 +12,6 @@
 			<li><a href="createdissues.php" data-theme="c">Created</a></li>
 		</ul>
 		</div><!-- /navbar -->
-		<h3> Welcome to Politicks! <br /> Your resource for making change in the world! </h3>
 
 		<br />
 
@@ -51,7 +50,6 @@
 	}
 ?>
 
-<div data-role="content">
 		<div class="content-primary">	
 		<ul data-role="listview" data-split-icon="arrow-r" data-theme="c" data-split-theme="d" data-filter="true" data-filter-placeholder="Search Issues...">
 			<?= $issues; ?>
@@ -70,6 +68,8 @@
 			<ul>
 				<?= $issuesgrid; ?>
 			</ul>
+			</div>
+		</div>
 		</div>
 	</div><!-- /content -->
 

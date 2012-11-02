@@ -51,7 +51,7 @@
 
 		<a href="#" data-role="button" data-theme="c">Leave a Comment</a>
 
-		<a href="solution.php" data-role="button">Show Proposed Solution</a>
+		<a href="solution.php?issue_id=<?= $_GET["id"]; ?>" data-role="button">Show Proposed Solution</a>
 	</div><!-- /content -->
 
 

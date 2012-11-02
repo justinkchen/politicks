@@ -2,11 +2,33 @@
 	<!-- /header -->
 
 	<div data-role="content">	
+<?php
+	if(isset($_GET["issue_id"])){
+		$query = sprintf("select * from proposedsolutions where issue_id='%s'",mysql_real_escape_string($_GET["issue_id"]));
+		$result = mysql_query($query);
+		$row = mysql_fetch_array($result);
+		$solution = $row["solution"];
+		if(mysql_num_rows($result) == 0){
+			header("Location: index.php");
+		}
+
+		$query = sprintf("select * from politicians where id='%s'",mysql_real_escape_string($row["politician_id"]));
+		$result = mysql_query($query);
+		$row = mysql_fetch_array($result);
+		$politician = $row["name"];
+		$description = $row["description"];
+		$pid = $row["id"];
+	}else{
+		header("Location: index.php");
+	}
+?>
 		<h1> Proposed Solution </h1>
-		<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at odio velit, non viverra dui. In hac habitasse platea dictumst. Nulla vitae eros leo. Vestibulum vitae lacus sapien, vitae consequat velit. Duis tristique pulvinar mauris, vitae feugiat elit viverra eu. Donec eget erat at sem luctus viverra eu et arcu. Curabitur dictum lorem nec eros mollis scelerisque. Pellentesque varius porttitor urna, sit amet auctor libero mollis non. </p>
+		<p> <?= $solution; ?> </p>
 
 		<h1> About the Politician </h1>
-		<a href="politicianprofile.php" data-role="button">View Politician</a>
+		<h3> <?= $politician ?> </h3>
+		<p> <?= $description ?> </p>
+		<a href="politicianprofile.php?id=<?= $pid; ?>" data-role="button">View Politician</a>
 
 	</div><!-- /content -->
 
