@@ -39,7 +39,9 @@
 		$result = mysql_query($query);
 		$row = mysql_fetch_array($result);
 		if(mysql_num_rows($result) == 0){
-			header("Location: index.php");
+		    echo "<script type=\"text/javascript\">".
+      			"window.location = \"index.php\"".
+      			"</script>";
 		}
 		$name = $row["name"];
 		$funding = $row["funding"];
@@ -70,7 +72,9 @@
 			$comments = "<center>No comments yet</center>";
 		}
 	}else{
-		header("Location: index.php");
+	    echo "<script type=\"text/javascript\">".
+  			"window.location = \"index.php\"".
+  			"</script>";
 	}
 ?>
 		<table width="100%">

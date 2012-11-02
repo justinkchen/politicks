@@ -50,6 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if ($userErr == "" && $emailErr == "") {
 			$query = sprintf("insert into users (name, username, email, password_hash) values ('%s', '%s', '%s', '%s')", mysql_real_escape_string($first." ".$last), mysql_real_escape_string($user), mysql_real_escape_string($email), hashPassword($_POST["password1"]));
 			if(mysql_query($query)){
+			    echo "<script type=\"text/javascript\">".
+          			"window.location = \"login.php?status=regsuccess\"".
+          			"</script>";
 				header("Location: login.php?status=regsuccess");
 			}else{
 				$status = "Error inserting information into database";

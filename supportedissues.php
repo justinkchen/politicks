@@ -1,10 +1,11 @@
+<?php
+	require_once("login.functions.inc.php");
+	checkLogin();
+?>
 <?php include_once("header.php") ?>
 	<!-- /header -->
 
 	<div data-role="content">	
-<?php
-	checkLogin();
-?>
 		<div data-role="navbar">
 		<ul>
 			<li><a href="index.php" data-theme="c">Featured</a></li>

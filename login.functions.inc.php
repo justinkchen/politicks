@@ -1,6 +1,6 @@
 <?php 
 
-function verifyLogin($username, $password){
+function verifyLogin($username, $password){;
   $sql = sprintf("select * from users where username = '%s' or email = '%s'", mysql_real_escape_string($username), mysql_real_escape_string($username));
   $result = mysql_query($sql);
   $num_results = mysql_num_rows($result);
@@ -11,7 +11,9 @@ function verifyLogin($username, $password){
     login($username);
     return true;
   }else{
-    header("Location: login.php?error=badlogin");
+    echo "<script type=\"text/javascript\">".
+          "window.location = \"login.php?error=badlogin\"".
+          "</script>";
   }
   return false;
 }
@@ -20,7 +22,9 @@ function checkLogin(){
   if (isset($_SESSION["username"]) && isset($_SESSION["userid"]) && isset($_SESSION["useremail"])){
     return true;
   }else{
-    header("Location: login.php?error=notloggedin");
+    echo "<script type=\"text/javascript\">".
+          "window.location = \"login.php?error=notloggedin\"".
+          "</script>";
   }
   return false;
 }

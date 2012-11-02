@@ -10,8 +10,9 @@
 			$pword = $_POST["password"];
 		}
 		verifyLogin($uname, $pword);
+	}else{
+		checkLogin();
 	}
-	checkLogin();
 ?>
 		<div data-role="navbar">
 		<ul>

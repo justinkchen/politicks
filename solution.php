@@ -9,7 +9,9 @@
 		$row = mysql_fetch_array($result);
 		$solution = $row["solution"];
 		if(mysql_num_rows($result) == 0){
-			header("Location: index.php");
+		    echo "<script type=\"text/javascript\">".
+	  			"window.location = \"index.php\"".
+	  			"</script>";
 		}
 
 		$query = sprintf("select * from politicians where id='%s'",mysql_real_escape_string($row["politician_id"]));
@@ -19,7 +21,9 @@
 		$description = $row["description"];
 		$pid = $row["id"];
 	}else{
-		header("Location: index.php");
+	    echo "<script type=\"text/javascript\">".
+  			"window.location = \"index.php\"".
+  			"</script>";
 	}
 ?>
 		<h1> Proposed Solution </h1>
