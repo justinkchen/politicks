@@ -1,6 +1,14 @@
 <?php include_once("header.php") ?>
 <div data-role="content">
 	<div data-role="fieldcontain">
+		<label for="first">First Name:</label>
+		<input type="text" name="first" id="first" value="" />
+	</div>
+	<div data-role="fieldcontain">
+		<label for="last">Last Name:</label>
+		<input type="text" name="last" id="last" value="" />
+	</div>
+	<div data-role="fieldcontain">
 		<label for="username">Username:</label>
 		<input type="text" name="username" id="username" value="" />
 	</div>
