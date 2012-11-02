@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 02, 2012 at 02:43 AM
+-- Generation Time: Nov 02, 2012 at 06:00 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -60,30 +60,6 @@ CREATE TABLE IF NOT EXISTS `comments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `funderstoissues`
---
-
-CREATE TABLE IF NOT EXISTS `funderstoissues` (
-  `funder` int(11) NOT NULL,
-  `issues` int(11) NOT NULL,
-  PRIMARY KEY (`funder`,`issues`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `funderstopoliticians`
---
-
-CREATE TABLE IF NOT EXISTS `funderstopoliticians` (
-  `funder` int(11) NOT NULL,
-  `politician` int(11) NOT NULL,
-  PRIMARY KEY (`funder`,`politician`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `issues`
 --
 
@@ -97,41 +73,19 @@ CREATE TABLE IF NOT EXISTS `issues` (
   `user_id` int(11) NOT NULL,
   `image` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `issues`
 --
 
 INSERT INTO `issues` (`id`, `name`, `description`, `funding`, `likes`, `category_id`, `user_id`, `image`) VALUES
-(1, 'Stop polluting pond', 'The pond is getting dirty.  People are littering all over the place and dumptrucks are leaving their messes right next to the pond.  Trash, Inc. is not following city regulations and somkething needs to be done about it.', 0, 0, 1, 1, ''),
+(1, 'Stop polluting pond', 'The pond is getting dirty.  People are littering all over the place and dumptrucks are leaving their messes right next to the pond.  Trash, Inc. is not following city regulations and something needs to be done about it.', 0, 0, 1, 1, ''),
 (2, 'City needs to lower emissions', 'Cars emitting too many harmful chemicals', 0, 0, 1, 1, ''),
 (3, 'Hire more teachers', 'Our highschool needs more teachers', 0, 0, 4, 1, ''),
-(4, 'Work hard, Play harder...', 'We need children to work hard and play harder!', 0, 0, 4, 1, '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `likerstoissues`
---
-
-CREATE TABLE IF NOT EXISTS `likerstoissues` (
-  `likers` int(11) NOT NULL,
-  `issues` int(11) NOT NULL,
-  PRIMARY KEY (`likers`,`issues`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `likerstopoliticians`
---
-
-CREATE TABLE IF NOT EXISTS `likerstopoliticians` (
-  `likers` int(11) NOT NULL,
-  `politician` int(11) NOT NULL,
-  PRIMARY KEY (`likers`,`politician`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(4, 'Work hard, Play harder...', 'We need children to work hard and play harder!', 0, 0, 4, 1, ''),
+(5, 'More hospitals around Berkeley', 'People keep getting attacked and we need more hospitals in the area.', 0, 0, 2, 1, ''),
+(6, 'Need more roads', 'Can''t get anywhere', 0, 0, 3, 1, '');
 
 -- --------------------------------------------------------
 
@@ -144,28 +98,41 @@ CREATE TABLE IF NOT EXISTS `politicians` (
   `name` tinytext NOT NULL,
   `followers` int(11) NOT NULL DEFAULT '0',
   `description` text NOT NULL,
-  PRIMARY KEY (`id`)
+  `image` varchar(100) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `politicians`
 --
 
-INSERT INTO `politicians` (`id`, `name`, `followers`, `description`) VALUES
-(1, 'President Barack Obama', 12356, 'I am the President of the United States. '),
-(2, 'Mayor Justin Chen', 1414, 'Just chilling around...');
+INSERT INTO `politicians` (`id`, `name`, `followers`, `description`, `image`, `email`) VALUES
+(1, 'President Barack Obama', 12356, 'I am the President of the United States. ', '', 'barack@whitehouse.gov'),
+(2, 'Mayor Justin Chen', 1414, 'Just chilling around...', '', 'justinkchen@stanford.edu');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `politicianstoissues`
+-- Table structure for table `proposedsolutions`
 --
 
-CREATE TABLE IF NOT EXISTS `politicianstoissues` (
-  `politician` int(11) NOT NULL,
-  `issues` int(11) NOT NULL,
-  PRIMARY KEY (`politician`,`issues`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `proposedsolutions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `solution` text NOT NULL,
+  `politician_id` int(11) NOT NULL,
+  `issue_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `proposedsolutions`
+--
+
+INSERT INTO `proposedsolutions` (`id`, `solution`, `politician_id`, `issue_id`, `category_id`) VALUES
+(1, 'Get rid of all trash!', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -179,7 +146,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password_hash` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`,`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
@@ -188,6 +156,45 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password_hash`) VALUES
 (1, 'Justin Chen', 'test', 'test@test.com', '$2a$15$06ZmA..97dsDPKNSucflDeWNoRAXhQfrlw9wKrDg.83gO3hV6ffea');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userstoissues`
+--
+
+CREATE TABLE IF NOT EXISTS `userstoissues` (
+  `user_id` int(11) NOT NULL,
+  `issue_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`issue_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `userstoissues`
+--
+
+INSERT INTO `userstoissues` (`user_id`, `issue_id`) VALUES
+(1, 1),
+(1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userstopoliticians`
+--
+
+CREATE TABLE IF NOT EXISTS `userstopoliticians` (
+  `user_id` int(11) NOT NULL,
+  `politician_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`politician_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `userstopoliticians`
+--
+
+INSERT INTO `userstopoliticians` (`user_id`, `politician_id`) VALUES
+(1, 2);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
