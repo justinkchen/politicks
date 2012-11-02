@@ -8,6 +8,7 @@ function verifyLogin($username, $password){
 
   $bcrypt = new Bcrypt(15);
   if ($num_results == 1 && $bcrypt->verify($password,$row["password_hash"])){
+    login($username);
     return true;
   }else{
     header("Location: login.php?error=badlogin");
@@ -16,11 +17,12 @@ function verifyLogin($username, $password){
 }
 
 function checkLogin(){
-  if (isset($_SESSION["username"])){
+  if (isset($_SESSION["username"]) && isset($_SESSION["userid"]) && isset($_SESSION["useremail"])){
     return true;
   }else{
-    return false;
+    header("Location: login.php?error=notloggedin");
   }
+  return false;
 }
 
 function hashPassword($password){
@@ -30,10 +32,17 @@ function hashPassword($password){
 
 function logout(){
   unset($_SESSION["username"]);
+  unset($_SESSION["userid"]);
+  unset($_SESSION["useremail"]);
 }
 
 function login($username){
-  $_SESSION["username"] = $username;
+  $sql = sprintf("select * from users where username = '%s' or email = '%s'", mysql_real_escape_string($username), mysql_real_escape_string($username));
+  $result = mysql_query($sql);
+  $row = mysql_fetch_assoc($result);  
+  $_SESSION["username"] = $row["username"];
+  $_SESSION["userid"] = $row["id"];
+  $_SESSION["useremail"] = $row["email"];
 }
 
 class Bcrypt {

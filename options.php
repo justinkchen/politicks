@@ -1,14 +1,14 @@
 
 <?php include_once("header.php") ?>
 	<!-- /header -->
-
+	<?php checkLogin(); ?>
 	<div data-role="content">	
 
-		<h1> Options </h1>
+		<h1>Options</h1>
 		<form action="#" method="post">
 		<div data-role="fieldcontain" class="ui-hide-label">
 		<label for="username">Username:</label>
-		<input type="text" name="username" id="username" value="" placeholder="Username"/>
+		<input type="text" name="username" id="username" value="<?= $_SESSION["username"]; ?>" placeholder="Username"/>
 		</div>
 		<fieldset data-role="controlgroup" data-mini="true">
 	    	<input data-theme="c" type="radio" name="radio-mini" id="radio-mini-1" value="choice-1" checked="checked" />
@@ -21,9 +21,19 @@
 	    	<label for="radio-mini-3">Cash</label>
 		</fieldset>
 
-		<a href="#" data-theme="c" id="reset" data-role="button">Reset to Defaults</a>
-		<input type="submit" value="Save"></input>
+		<fieldset class="ui-grid-a">
+			<div class="ui-block-a"><button type="submit" data-theme="c">Cancel</button></div>
+			<div class="ui-block-b"><button type="submit" data-theme="b">Save</button></div>	   
+		</fieldset>
 		</form>
+		<br />
+		<br />
+		<p align="right">
+		<form action="login.php" method="post">
+			<input type="hidden" name="logout" value="true" />
+			<input type="submit" data-mini="true" value="Logout" data-theme="a"></input>
+		</form>
+		</p>
 	</div><!-- /content -->
 
 <?php include_once("footer.php") ?>
