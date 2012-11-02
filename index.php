@@ -59,7 +59,7 @@
 	}
 ?>
 
-<div data-role="content">
+
 		<div class="content-primary">	
 		<ul data-role="listview" data-split-icon="arrow-r" data-theme="c" data-split-theme="d" data-filter="true" data-filter-placeholder="Search Issues...">
 			<?= $issues; ?>
@@ -78,6 +78,8 @@
 			<ul>
 				<?= $issuesgrid; ?>
 			</ul>
+			</div>
+		</div>
 		</div>
 	</div><!-- /content -->
 

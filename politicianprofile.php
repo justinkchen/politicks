@@ -20,15 +20,18 @@
 
 		$query = "select * from categories";
 		$result = mysql_query($query);
+		$totalcount = 0;
 		while ($row=mysql_fetch_array($result)){
 			$query = sprintf("select * from proposedsolutions where politician_id='%s' and category_id='%s'", $id, $row["id"]);
 			$countresult = mysql_query($query);
+			$count = mysql_num_rows($countresult);
+			$totalcount += $count;
 			$issuesgridstyle .= "#".$row["name"]." .ui-icon { background:  url(".$row["icon"].") 50% 50% no-repeat; background-size: 26px 26px; }";
-			$issuesgrid .= "<li><a href=\"index.php\" id=\"".$row["name"]."\" data-icon=\"custom\" data-theme=\"c\">".mysql_num_rows($countresult)." Issues</a></li>";
+			$issuesgrid .= "<li><a href=\"politicianissues.php?pid=".$_GET['id']."&cid=".$row['id']."\" id=\"".$row["name"]."\" data-icon=\"custom\" data-theme=\"c\">".$count." ".$row['name']."</a></li>";
 		}
-		}else{
-			header("Location: politicians.php");
-		}
+	}else{
+		header("Location: politicians.php");
+	}
 ?>
 		<table width="100%">
 			<tr>
@@ -38,7 +41,7 @@
 				<td>
 					<table>
 					<tr><td>
-						<?= $name; ?>
+						<b><?= $name; ?></b>
 					</td></tr>
 					<tr><td>
 						<?= $followers; ?> Followers
@@ -59,14 +62,15 @@
 			<?= $issuesgridstyle; ?>
 		</style>
 
-		<div data-role="footer" class="nav-glyphish-example">
+		<label for="issuesgrid"><h4>Issues with Proposed Solutions<h4></label>
+		<div name="issuesgrid" data-role="footer" class="nav-glyphish-example">
 			<div data-role="navbar" class="nav-glyphish-example" data-grid="a">
 			<ul>
 				<?= $issuesgrid; ?>
-
 			</ul>
 			</div>
 		</div>
+		<a href="politicianissues.php?pid=<?= $_GET['id']; ?>" data-role="button"><?= $totalcount; ?> Total Proposed Solutions</a>
 
 		<h1>Description</h1>
 		<p>
