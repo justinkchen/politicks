@@ -42,8 +42,9 @@
 		if(mysql_num_rows($result) == 0){
       		redirect_to_URL("index.php");
 		}
-		$name = $row["name"];
+		$issue_name = $row["name"];
 		$funding = $row["funding"];
+		$description = $row["description"];
 		$likes = $row["likes"];
 
 		// Handle Comments
@@ -70,6 +71,16 @@
 		if ($comments == ""){
 			$comments = "<center>No comments yet</center>";
 		}
+
+		//gets link to current page
+		if ($_SERVER["SERVER_PORT"] != "80")
+		{
+				$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+				} 
+		else 
+		{
+			$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+		}
 	}else{
   		redirect_to_URL("index.php");
 	}
@@ -82,7 +93,7 @@
 				<td>
 					<table>
 					<tr><td>
-						<b><?= $name; ?></b>
+						<b><?= $issue_name; ?></b>
 					</td></tr>
 					<tr><td>
 						$<?= number_format($funding,2); ?> raised
@@ -96,14 +107,24 @@
 				<td>
 					<table>
 					<tr><td>
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
-">
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</form>
-</img></input></input></input></form>
+						<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+						<input type="hidden" name="cmd" value="_donations">
+						<input type="hidden" name="business" value="TG7Q5GHMSDZR4">
+						<input type="hidden" name="lc" value="US">
+						<input type="hidden" name="item_name" value="Politicks donation to: <?= $issue_name ?> ">
+						<input type="hidden" name="no_note" value="0">
+						<input type="hidden" name="cn" value="Add special instructions to the seller:">
+						<input type="hidden" name="no_shipping" value="2">
+						<input type="hidden" name="rm" value="1">
+						<input type="hidden" name="return" value="<?= $pageURL; ?>">
+						<input type="hidden" name="cancel_return" value="<?= $pageURL; ?>">
+						<input type="hidden" name="currency_code" value="USD">
+						<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHosted">
+						<input type="hidden" name="notify_url" value="https://replacelater.com">
+						<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+						<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+						</form>
+
 					</td></tr>
 					</table>
 				</td>
@@ -112,7 +133,7 @@
 
 		<h1>Description</h1>
 		<p>
-			<?= $row["description"]; ?>
+			<?= $description; ?>
 		</p>
 		<hr />
 		<br />

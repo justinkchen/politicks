@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 02, 2012 at 10:01 AM
+-- Generation Time: Nov 09, 2012 at 06:16 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `name` tinytext NOT NULL,
   `icon` varchar(75) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `categories`
@@ -41,7 +41,9 @@ INSERT INTO `categories` (`id`, `name`, `icon`) VALUES
 (1, 'Environment', 'images/icons/52-pine-tree.png'),
 (2, 'Healthcare', 'images/icons/10-medical.png'),
 (3, 'Transportation', 'images/icons/113-navigation.png'),
-(4, 'Education', 'images/icons/140-gradhat.png');
+(4, 'Education', 'images/icons/140-gradhat.png'),
+(6, 'Community', 'images/icons/53-house.png'),
+(50, 'Other', 'images/icons/152-rolodex.png');
 
 -- --------------------------------------------------------
 
@@ -80,20 +82,23 @@ CREATE TABLE IF NOT EXISTS `issues` (
   `category_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `image` varchar(100) NOT NULL,
+  `latitude` float NOT NULL DEFAULT '0',
+  `longitude` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `issues`
 --
 
-INSERT INTO `issues` (`id`, `name`, `description`, `funding`, `likes`, `category_id`, `user_id`, `image`) VALUES
-(1, 'Stop polluting pond', 'The pond is getting dirty.  People are littering all over the place and dumptrucks are leaving their messes right next to the pond.  Trash, Inc. is not following city regulations and something needs to be done about it.', 372.51, 2, 1, 1, ''),
-(2, 'City needs to lower emissions', 'Cars emitting too many harmful chemicals', 0, 0, 1, 1, ''),
-(3, 'Hire more teachers', 'Our highschool needs more teachers', 0, 0, 4, 1, ''),
-(4, 'Work hard, Play harder...', 'We need children to work hard and play harder!', 0, 0, 4, 1, ''),
-(5, 'More hospitals around Berkeley', 'People keep getting attacked and we need more hospitals in the area.', 0, 0, 2, 1, ''),
-(6, 'Need more roads', 'Can''t get anywhere', 0, 0, 3, 1, '');
+INSERT INTO `issues` (`id`, `name`, `description`, `funding`, `likes`, `category_id`, `user_id`, `image`, `latitude`, `longitude`) VALUES
+(1, 'Stop polluting pond', 'The pond is getting dirty.  People are littering all over the place and dumptrucks are leaving their messes right next to the pond.  Trash, Inc. is not following city regulations and something needs to be done about it. NOW!', 372.51, 2, 1, 1, '', 0, 0),
+(2, 'City needs to lower emissions', 'Cars emitting too many harmful chemicals', 0, 0, 1, 1, '', 0, 0),
+(3, 'Hire more teachers', 'Our highschool needs more teachers', 0, 0, 4, 1, '', 0, 0),
+(4, 'Work hard, Play harder...', 'We need children to work hard and play harder!', 0, 0, 4, 1, '', 0, 0),
+(5, 'More hospitals around Berkeley', 'People keep getting attacked and we need more hospitals in the area.', 0, 0, 2, 1, '', 0, 0),
+(6, 'Need more roads', 'Can''t get anywhere', 0, 0, 3, 1, '', 0, 0),
+(12, 'A Cool issue', 'Some interesting stuff', 0, 0, 6, 1, '', 37.4257, -122.194);
 
 -- --------------------------------------------------------
 
