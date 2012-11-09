@@ -10,9 +10,7 @@
 		$query = sprintf("select * from politicians where id='%s'",mysql_real_escape_string($_GET["id"]));
 		$result = mysql_query($query);
 		if(mysql_num_rows($result) == 0){
-		    echo "<script type=\"text/javascript\">".
-      			"window.location = \"politicians.php\"".
-      			"</script>";
+      		redirect_to_URL("politicians.php");
 		}
 		$row = mysql_fetch_array($result);
 		$id = $row["id"];
@@ -40,9 +38,7 @@
 			mysql_query($query);
 		}
 	}else{
-	    echo "<script type=\"text/javascript\">".
-  			"window.location = \"politicians.php\"".
-  			"</script>";
+  		redirect_to_URL("politicians.php");
 	}
 ?>
 		<table width="100%">

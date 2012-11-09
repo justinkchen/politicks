@@ -4,6 +4,7 @@
 	<div data-role="content">	
 
 <?php
+	checkLogin();
 	if(isset($_GET["id"])){
 
 		// Handle Donating
@@ -39,9 +40,7 @@
 		$result = mysql_query($query);
 		$row = mysql_fetch_array($result);
 		if(mysql_num_rows($result) == 0){
-		    echo "<script type=\"text/javascript\">".
-      			"window.location = \"index.php\"".
-      			"</script>";
+      		redirect_to_URL("index.php");
 		}
 		$name = $row["name"];
 		$funding = $row["funding"];
@@ -72,9 +71,7 @@
 			$comments = "<center>No comments yet</center>";
 		}
 	}else{
-	    echo "<script type=\"text/javascript\">".
-  			"window.location = \"index.php\"".
-  			"</script>";
+  		redirect_to_URL("index.php");
 	}
 ?>
 		<table width="100%">

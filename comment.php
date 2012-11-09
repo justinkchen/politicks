@@ -8,14 +8,10 @@
 		$result = mysql_query($query);
 		$row = mysql_fetch_array($result);
 		if(mysql_num_rows($result) == 0){
-			    echo "<script type=\"text/javascript\">".
-          			"window.location = \"index.php\"".
-          			"</script>";
+          	redirect_to_URL("index.php");
 		}
 	}else{
-	    echo "<script type=\"text/javascript\">".
-  			"window.location = \"index.php\"".
-  			"</script>";
+  		redirect_to_URL("index.php");
 	}
 ?>	
 		<h1>Leave a Comment</h1>

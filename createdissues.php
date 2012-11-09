@@ -39,6 +39,7 @@
 				"<h3>".$name."</h3>".
 				"<p>".$description."</p>".
 				"</a>".
+				"<a href=\"editissue.php?id=".$id."\"></a>".
 				"</li>"; 
 	} 
 	
@@ -51,7 +52,7 @@
 ?>
 
 		<div class="content-primary">	
-		<ul data-role="listview" data-split-icon="arrow-r" data-theme="c" data-split-theme="d" data-filter="true" data-filter-placeholder="Search Issues...">
+		<ul data-role="listview" data-split-icon="gear" data-theme="c" data-split-theme="d" data-filter="true" data-filter-placeholder="Search Issues...">
 			<?= $issues; ?>
 		</ul>
 

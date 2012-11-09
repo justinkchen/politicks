@@ -29,8 +29,8 @@ if (isset($_GET["error"])){
 		<label for="password">Password:</label>
 		<input type="password" name="password" id="password" data-mini="true" />
 		<fieldset class="ui-grid-a">
-			<div class="ui-block-a"><button type="submit" data-theme="a">Login</button></div>
-			<div class="ui-block-b"><a href='register.php' data-role="button" data-theme="b">Signup</a></div>
+			<div class="ui-block-a"><a href='register.php' data-role="button" data-theme="a">Register</a></div>
+			<div class="ui-block-b"><button type="submit" data-theme="b">Login</button></div>
 		</fieldset>
 	</form>
 

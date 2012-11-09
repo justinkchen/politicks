@@ -11,7 +11,8 @@
 		}
 		verifyLogin($uname, $pword);
 	}else{
-		checkLogin();
+		$dispError = false;
+		checkLogin($dispError);
 	}
 ?>
 		<div data-role="navbar">
