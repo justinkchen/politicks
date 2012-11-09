@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		$description = $_POST["description"];
 	}
 	if ($titleErr == "" && $categoryErr == "" && $descriptionErr == ""){
-		$query = sprintf("insert into issues (name, description, category_id, user_id) values ('%s','%s', %s, %s)", mysql_real_escape_string($_POST["title"]), mysql_real_escape_string($_POST["description"]), mysql_real_escape_string($_POST["category"]), mysql_real_escape_string($_SESSION["userid"]));
+		$query = sprintf("insert into issues (name, description, category_id, user_id, latitude, longitude) values ('%s','%s', '%s', '%s', '%s', '%s')", mysql_real_escape_string($_POST["title"]), mysql_real_escape_string($_POST["description"]), mysql_real_escape_string($_POST["category"]), mysql_real_escape_string($_SESSION["userid"]), mysql_real_escape_string($_POST["latitude"]), mysql_real_escape_string($_POST["longitude"]));
 		if(mysql_query($query)){
 			$status = "Successfully added the issue! You're one step closer to making a difference!";
 			$title = $description = "";
@@ -41,11 +41,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 
+
+<script type="text/javascript" >
+// Location tracking
+$(document).ready(function() 
+{
+ 	
+   // W3C Geolocation check, if successful call successCallback otherwise errorCallback
+	if(navigator.geolocation) 
+	{ 
+	 	navigator.geolocation.getCurrentPosition(successCallback,errorCallback, {enableHighAccuracy: true, timeout: 10000, maximumAge: 20000}); 
+	} 
+	//Success Callback function
+	function successCallback(position){
+		//Declare all the variables
+		var latitude = (position.coords.latitude).toFixed(6);
+		var longitude = (position.coords.longitude).toFixed(6);
+		var geocoder = new google.maps.Geocoder();
+	    var latlng = new google.maps.LatLng(latitude, longitude);				
+	   
+	   latInput = document.getElementById("latitude");
+	   longInput = document.getElementById("longitude");
+	   //Reverse geocode the users current location
+	   geocoder.geocode({'latLng': latlng}, function(results, status) 
+	   {
+	   	if (status == google.maps.GeocoderStatus.OK) 
+	   	{
+	   		if (results[1])
+	   		{
+	   			latInput.value = latitude;
+	   			longInput.value = longitude;
+	   		}
+	   	}
+	   	else
+	   	{
+	   		alert("Geocoder failed due to: " + status);
+	   	}
+	   });
+  	}	
+  	//Error call back for geolocation
+	function errorCallback() 
+	{ 
+		alert("Sorry, we couldn't find your location"); 
+	}
+});
+</script>
+
 <span class="status"><?= $status; ?></span>
 <form action="addissue.php" method="post">
 	<div data-role="fieldcontain">
 		<label for="title">Title:</label>
-		<input type="text" name="title" id="title" data-mini="true" value="<?= $title; ?>" />
+		<input type="text" name="title" id="title" data-mini="true" placeholder="e.g. Enter title here" value="<?= $title; ?>" />
 		<span class="error"><?php echo $titleErr;?></span>
 	</div>
 
@@ -74,11 +120,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 	<div data-role="fieldcontain">
 		<label for="description">Description:</label>
-		<textarea name="description" id="description" style="height: 100px;" value="<?= $description; ?>"><?= $description; ?></textarea>
+		<textarea name="description" id="description" placeholder="e.g. Enter description here" style="height: 100px;" value="<?= $description; ?>"><?= $description; ?></textarea>
 		<span class="error"><?php echo $descriptionErr;?></span>
 	</div>
+
+	<input type="hidden" name="latitude" id="latitude" value="0">
+	<input type="hidden" name="longitude" id="longitude" value="0">
+
 	<input type="submit" value="Add Issue"></input>
 </form>
+<p align="right"><a href='index.php' data-role='button' data-mini='true' data-inline='true' data-theme='a'>Go back to Issues list</a></p>
 </div><!-- /content -->
 
 <?php include_once("footer.php") ?>

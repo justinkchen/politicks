@@ -2,12 +2,24 @@
 <!-- /header -->
 
 <div data-role="content">	
-<?php checkLogin(); ?>
-	
-<?php 
+<?php
+checkLogin();
+
+if(isset($_GET["id"])){
+	$query = sprintf("select * from issues where id='%s'", mysql_real_escape_string($_GET["id"]));
+	$result = mysql_query($query);
+	$row = mysql_fetch_array($result);
+	if(mysql_num_rows($result) == 0){
+		redirect_to_URL("createdissues.php");
+	}
+	$title = $row["name"];
+	$description = $row["description"];
+	$category = $row["category_id"];
+}else{
+	redirect_to_URL("createdissues.php");
+}
+
 $titleErr = $categoryErr = $descriptionErr = "";
-$title = $description = "";
-$category = "none";
 $status = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	if (empty($_POST["title"])){
@@ -26,11 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		$description = $_POST["description"];
 	}
 	if ($titleErr == "" && $categoryErr == "" && $descriptionErr == ""){
-		$query = sprintf("insert into issues (name, description, category_id, user_id) values ('%s','%s', %s, %s)", mysql_real_escape_string($_POST["title"]), mysql_real_escape_string($_POST["description"]), mysql_real_escape_string($_POST["category"]), mysql_real_escape_string($_SESSION["userid"]));
+		$query = sprintf("update issues set name='%s', description='%s', category_id='%s' where id='%s'", mysql_real_escape_string($_POST["title"]), mysql_real_escape_string($_POST["description"]), mysql_real_escape_string($_POST["category"]), mysql_real_escape_string($_GET["id"]));
 		if(mysql_query($query)){
-			$status = "Successfully added the issue! You're one step closer to making a difference!";
+			$status = "Successfully edited the issue!";
 		}else{
-			$status = "Creation failed due to database problems. Please try again.";
+			$status = "Update failed due to database problems. Please try again.";
 		}
 	}else{
 		$status = "Please fix the following errors";
@@ -39,10 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
 
 <span class="status"><?= $status; ?></span>
-<form action="addissue.php" method="post">
+<form action="editissue.php?id=<?= $_GET["id"] ?>" method="post">
 	<div data-role="fieldcontain">
 		<label for="title">Title:</label>
-		<input type="text" name="title" id="title" data-mini="true" value="<?= $title; ?>" />
+		<input type="text" name="title" id="title" class="ui-disabled" data-mini="true" placeholder="e.g. Enter title here" value="<?= $title; ?>" />
 		<span class="error"><?php echo $titleErr;?></span>
 	</div>
 
@@ -71,11 +83,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 	<div data-role="fieldcontain">
 		<label for="description">Description:</label>
-		<textarea name="description" id="description" style="height: 100px;" value="<?= $description; ?>"><?= $description; ?></textarea>
+		<textarea name="description" id="description" placeholder="e.g. Enter description here" style="height: 100px;" value="<?= $description; ?>"><?= $description; ?></textarea>
 		<span class="error"><?php echo $descriptionErr;?></span>
 	</div>
-	<input type="submit" value="Add Issue"></input>
+
+	<input type="submit" value="Edit Issue"></input>
 </form>
+<p align="right"><a href='createdissues.php' data-role='button' data-mini='true' data-inline='true' data-theme='a'>Go back to Created Issues</a></p>
 </div><!-- /content -->
 
 <?php include_once("footer.php") ?>

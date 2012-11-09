@@ -42,8 +42,9 @@
 		if(mysql_num_rows($result) == 0){
       		redirect_to_URL("index.php");
 		}
-		$name = $row["name"];
+		$issue_name = $row["name"];
 		$funding = $row["funding"];
+		$description = $row["description"];
 		$likes = $row["likes"];
 
 		// Handle Comments
@@ -82,7 +83,7 @@
 				<td>
 					<table>
 					<tr><td>
-						<b><?= $name; ?></b>
+						<b><?= $issue_name; ?></b>
 					</td></tr>
 					<tr><td>
 						$<?= number_format($funding,2); ?> raised
@@ -100,7 +101,7 @@
 						<input type="hidden" name="cmd" value="_donations">
 						<input type="hidden" name="business" value="donations@politicks.com">
 						<input type="hidden" name="lc" value="US">
-						<input type="hidden" name="item_name" value="Politicks donation to: <?= $name ?> ">
+						<input type="hidden" name="item_name" value="Politicks donation to: <?= $issue_name ?> ">
 						<input type="hidden" name="no_note" value="0">
 						<input type="hidden" name="currency_code" value="USD">
 						<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
@@ -116,7 +117,7 @@
 
 		<h1>Description</h1>
 		<p>
-			<?= $row["description"]; ?>
+			<?= $description; ?>
 		</p>
 		<hr />
 		<br />

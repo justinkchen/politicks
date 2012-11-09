@@ -9,7 +9,7 @@
 		<ul>
 			<li><a href="index.php" data-theme="c">Featured</a></li>
 			<li><a href="supportedissues.php" data-theme="c">Supported</a></li>
-			<li><a href="createdissues.php" data-theme="c">Created</a></li>
+			<li><a href="createdissues.php" data-theme="c" class="ui-btn-active ui-state-persist">Created</a></li>
 		</ul>
 		</div><!-- /navbar -->
 
@@ -63,6 +63,9 @@
 			.nav-glyphish-example .ui-btn .ui-icon { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
 			<?= $issuesgridstyle; ?>
 		</style>
+		<?php if(isset($_GET["category"])){ ?>
+			<a href="index.php" data-role="button" data-theme="c">All Issues</a>
+		<?php } ?>
 		<br />
 		<div data-role="footer" class="nav-glyphish-example">
 			<div data-role="navbar" class="nav-glyphish-example" data-grid="a">
