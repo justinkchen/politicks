@@ -15,9 +15,7 @@
 			$query = sprintf("select * from proposedsolutions where politician_id='%s'",mysql_real_escape_string($_GET["pid"]));
 		}
 	}else{
-	    echo "<script type=\"text/javascript\">".
-  			"window.location = \"politicians.php\"".
-  			"</script>";
+  		redirect_to_URL("politicians.php");
 	}
 
 	$result = mysql_query($query);

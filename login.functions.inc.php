@@ -11,20 +11,27 @@ function verifyLogin($username, $password){;
     login($username);
     return true;
   }else{
-    echo "<script type=\"text/javascript\">".
-          "window.location = \"login.php?error=badlogin\"".
-          "</script>";
+    // echo "<script type=\"text/javascript\">".
+    //       "window.location = \"login.php?error=badlogin\"".
+    //       "</script>";
+    redirect_to_URL("login.php?error=badlogin");
   }
   return false;
 }
 
-function checkLogin(){
+function checkLogin($dispError = true){
   if (isset($_SESSION["username"]) && isset($_SESSION["userid"]) && isset($_SESSION["useremail"])){
     return true;
   }else{
-    echo "<script type=\"text/javascript\">".
-          "window.location = \"login.php?error=notloggedin\"".
-          "</script>";
+    // echo "<script type=\"text/javascript\">".
+    //       "window.location = \"login.php?error=notloggedin\"".
+    //       "</script>";
+    if($dispError){
+      // Display Error message saying to login first
+      redirect_to_URL("login.php?error=notloggedin");
+    }else{
+      redirect_to_URL("login.php");
+    }
   }
   return false;
 }
