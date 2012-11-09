@@ -98,9 +98,9 @@
 					<tr><td>
 						<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 						<input type="hidden" name="cmd" value="_donations">
-						<input type="hidden" name="business" value="leonlinsjunk@gmail.com">
+						<input type="hidden" name="business" value="donations@politicks.com">
 						<input type="hidden" name="lc" value="US">
-						<input type="hidden" name="item_name" value="Politicks">
+						<input type="hidden" name="item_name" value="Politicks donation to: <?= $name ?> ">
 						<input type="hidden" name="no_note" value="0">
 						<input type="hidden" name="currency_code" value="USD">
 						<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
