@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 09, 2012 at 06:16 AM
+-- Generation Time: Nov 16, 2012 at 08:33 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `name` tinytext NOT NULL,
   `icon` varchar(75) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
 
 --
 -- Dumping data for table `categories`
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `issues` (
   `likes` int(11) NOT NULL DEFAULT '0',
   `category_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `image` varchar(100) NOT NULL,
+  `image` varchar(300) NOT NULL,
   `latitude` float NOT NULL DEFAULT '0',
   `longitude` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
@@ -92,13 +92,13 @@ CREATE TABLE IF NOT EXISTS `issues` (
 --
 
 INSERT INTO `issues` (`id`, `name`, `description`, `funding`, `likes`, `category_id`, `user_id`, `image`, `latitude`, `longitude`) VALUES
-(1, 'Stop polluting pond', 'The pond is getting dirty.  People are littering all over the place and dumptrucks are leaving their messes right next to the pond.  Trash, Inc. is not following city regulations and something needs to be done about it. NOW!', 372.51, 2, 1, 1, '', 0, 0),
-(2, 'City needs to lower emissions', 'Cars emitting too many harmful chemicals', 0, 0, 1, 1, '', 0, 0),
-(3, 'Hire more teachers', 'Our highschool needs more teachers', 0, 0, 4, 1, '', 0, 0),
-(4, 'Work hard, Play harder...', 'We need children to work hard and play harder!', 0, 0, 4, 1, '', 0, 0),
-(5, 'More hospitals around Berkeley', 'People keep getting attacked and we need more hospitals in the area.', 0, 0, 2, 1, '', 0, 0),
-(6, 'Need more roads', 'Can''t get anywhere', 0, 0, 3, 1, '', 0, 0),
-(12, 'A Cool issue', 'Some interesting stuff', 0, 0, 6, 1, '', 37.4257, -122.194);
+(1, 'Stop polluting pond', 'The pond is getting dirty.  People are littering all over the place and dumptrucks are leaving their messes right next to the pond.  Trash, Inc. is not following city regulations and something needs to be done about it. NOW!', 372.51, 2, 1, 1, 'http://farm5.staticflickr.com/4075/4895313043_aaf1a94603.jpg', 0, 0),
+(2, 'City needs to lower emissions', 'Cars emitting too many harmful chemicals', 0, 0, 1, 1, 'http://images.nationalgeographic.com/wpf/media-live/photos/000/001/cache/green-house-factor_177_600x450.jpg', 0, 0),
+(3, 'Hire more teachers', 'Our highschool needs more teachers', 0, 0, 4, 1, 'http://fromoureyes.com/sites/default/files/field/image/Coolest-math-teacher-ever-halloween-costume-hot-teacher_0.jpg', 0, 0),
+(4, 'Work hard, Play harder...', 'We need children to work hard and play harder!', 0, 0, 4, 1, 'http://iamboigenius.com/wp-content/uploads/2012/05/Wiz-Khalifa-Work-Hard-Play-Hard.jpg', 0, 0),
+(5, 'More hospitals around Berkeley', 'People keep getting attacked and we need more hospitals in the area.', 0, 0, 2, 1, 'http://us.123rf.com/400wm/400/400/goodluz/goodluz1209/goodluz120900738/15383749-portrait-of-beautiful-nurse-standing-in-hospital.jpg', 0, 0),
+(6, 'Need more roads', 'Can''t get anywhere', 0, 0, 3, 2, 'http://lh5.ggpht.com/abramsv/R2cgzUKUZoI/AAAAAAAABFM/ZlDAC9JKgpk/s640/01_probka.jpg', 0, 0),
+(12, 'Statue of Mayor Chen', 'Some interesting stuff', 0, 0, 6, 1, 'http://images.fineartamerica.com/images-medium-large/plaza-mayor-statue-of-king-philip-iii-horseman-in-madrid-spain-john-a-shiron.jpg', 37.4257, -122.194);
 
 -- --------------------------------------------------------
 
