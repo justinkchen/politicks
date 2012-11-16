@@ -6,7 +6,7 @@ function verifyLogin($username, $password){;
   $num_results = mysql_num_rows($result);
   $row = mysql_fetch_assoc($result);
 
-  $bcrypt = new Bcrypt(5);
+  $bcrypt = new Bcrypt(1);
   if ($num_results == 1 && $bcrypt->verify($password,$row["password_hash"])){
     login($username);
     return true;
@@ -37,7 +37,7 @@ function checkLogin($dispError = true){
 }
 
 function hashPassword($password){
-  $bcrypt = new Bcrypt(5);
+  $bcrypt = new Bcrypt(1);
   return $bcrypt->hash($password);
 }
 

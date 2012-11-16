@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$last = $_POST["last"];
 	}
 	if (empty($_POST["user"])) {
-		$userErr = "Please enter a last name";
+		$userErr = "Please enter a username";
 	} else {
 		$user = $_POST["user"];
 	}
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if ($_POST["password1"] != $_POST["password2"]) {
 		$passwordMatchErr = "Your passwords do not match";
 	} 
-	if ($firstErr == "" && $lastErr == "" && $userErr == "" && $emailErr == "" && $password1Err == "" && $passwordMatchError == "") {
+	if ($firstErr == "" && $lastErr == "" && $userErr == "" && $emailErr == "" && $password1Err == "" && $passwordMatchErr == "") {
 		$userUniq = sprintf("select username from users where username = '%s'", mysql_real_escape_string($user));
 		$result = mysql_query($userUniq);
 		if(mysql_num_rows($result) > 0) {
@@ -50,7 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if ($userErr == "" && $emailErr == "") {
 			$query = sprintf("insert into users (name, username, email, password_hash) values ('%s', '%s', '%s', '%s')", mysql_real_escape_string($first." ".$last), mysql_real_escape_string($user), mysql_real_escape_string($email), hashPassword($_POST["password1"]));
 			if(mysql_query($query)){
-          		redirect_to_URL("login.php?status=regsuccess");
+				login($user);
+				redirect_to_URL("index.php?status=regsuccess");
+          		//redirect_to_URL("login.php?status=regsuccess");
 			}else{
 				$status = "Error inserting information into database";
 			}
@@ -94,6 +96,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		</div>
 		<input type="submit" value="Create Account"></input>
 	</form>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
 </div>
 
-<?php include_once("footer.php") ?>
+<?php include_once("emptyfooter.php") ?>

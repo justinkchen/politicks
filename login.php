@@ -13,11 +13,12 @@ if (isset($_GET["error"])){
 		$error = "Username/Password combination not found";
 	}else if($_GET["error"] == "notloggedin"){
 		$error = "Must be logged in first";
-	}else if($_GET["status"] == "regsuccess"){
-		$status = "Successfully created account! Please login below";
 	}else{
 		$error = "ERROR";
 	}
+}
+if (isset($_GET["status"])){
+	$status = "Successfully created account! Please login below";
 }
 
 ?>

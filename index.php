@@ -3,6 +3,7 @@
 
 	<div data-role="content">	
 <?php
+	$status = "";
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		$uname = $pword = "";
 		if (isset($_POST["username"]) && isset($_POST["password"])){
@@ -14,7 +15,13 @@
 		$dispError = false;
 		checkLogin($dispError);
 	}
+	if (isset($_GET["status"]) && $_GET["status"] == "regsuccess"){
+		$status = "Successfully created account! Welcome!<br /><br />";
+	}else if (isset($_GET["status"]) && $_GET["status"] == "addsuccess"){
+		$status = "Successfully added an issue!<br /><br />";
+	}
 ?>
+		<span class="status"><?= $status; ?></span>
 		<div data-role="navbar">
 		<ul>
 			<li><a href="index.php" data-theme="c" class="ui-btn-active ui-state-persist">Featured</a></li>
@@ -22,6 +29,7 @@
 			<li><a href="createdissues.php" data-theme="c">Created</a></li>
 		</ul>
 		</div><!-- /navbar -->
+
 		<h3> Welcome to Politicks! <br /> Your resource for making change in the world! </h3>
 
 		<br />

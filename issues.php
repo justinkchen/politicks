@@ -5,6 +5,7 @@
 
 <?php
 	checkLogin();
+	$pageURL = "http://";
 	if(isset($_GET["id"])){
 
 		// Handle Donating
@@ -107,17 +108,14 @@
 				<td>
 					<table>
 					<tr><td>
-						<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 						<input type="hidden" name="cmd" value="_donations">
-						<input type="hidden" name="business" value="TG7Q5GHMSDZR4">
+						<input type="hidden" name="business" value="donations@politicks.com"> <!-- TG7Q5GHMSDZR4 -->
 						<input type="hidden" name="lc" value="US">
 						<input type="hidden" name="item_name" value="Politicks donation to: <?= $issue_name ?> ">
-						<input type="hidden" name="no_note" value="0">
-						<input type="hidden" name="cn" value="Add special instructions to the seller:">
-						<input type="hidden" name="no_shipping" value="2">
-						<input type="hidden" name="rm" value="1">
 						<input type="hidden" name="return" value="<?= $pageURL; ?>">
 						<input type="hidden" name="cancel_return" value="<?= $pageURL; ?>">
+						<input type="hidden" name="cbt" value="Return to Politicks">
 						<input type="hidden" name="currency_code" value="USD">
 						<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHosted">
 						<input type="hidden" name="notify_url" value="https://replacelater.com">

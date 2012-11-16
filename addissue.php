@@ -29,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	if ($titleErr == "" && $categoryErr == "" && $descriptionErr == ""){
 		$query = sprintf("insert into issues (name, description, category_id, user_id, latitude, longitude) values ('%s','%s', '%s', '%s', '%s', '%s')", mysql_real_escape_string($_POST["title"]), mysql_real_escape_string($_POST["description"]), mysql_real_escape_string($_POST["category"]), mysql_real_escape_string($_SESSION["userid"]), mysql_real_escape_string($_POST["latitude"]), mysql_real_escape_string($_POST["longitude"]));
 		if(mysql_query($query)){
+			redirect_to_URL("index.php?status=addsuccess");
 			$status = "Successfully added the issue! You're one step closer to making a difference!";
 			$title = $description = "";
 			$category = "none";

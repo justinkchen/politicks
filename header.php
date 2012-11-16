@@ -18,11 +18,10 @@ require_once("config.php");
 <div data-role="page" data-theme="b" data-content-theme="b" id="one">
 <div data-role="header" data-position="fixed">
 	<div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-		
+		<a href="info.php" data-role="button" data-icon="info">Info</a>
 	</div>
 	<h1>Politicks</h1>
 	<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-		<a href="info.php" data-role="button" data-icon="info" data-iconpos="notext"></a>
 		<a href="options.php" data-role="button" data-icon="gear" data-iconpos="notext"></a>
 		<!--<a href="search.php" data-role="button" data-icon="search" data-iconpos="notext"></a>-->
 	</div>
