@@ -22,19 +22,18 @@
 		<span class="status"><?= $status; ?></span>
 		<div data-role="navbar">
 		<ul>
-			<li><a href="<?= $featuredurl ?>" data-theme="c">Featured</a></li>
-			<li><a href="<?= $supportedurl ?>" data-theme="c" class="ui-btn-active ui-state-persist">Supported</a></li>
+			<li><a href="<?= $featuredurl ?>" data-theme="c" class="ui-btn-active ui-state-persist">Featured</a></li>
+			<li><a href="<?= $supportedurl ?>" data-theme="c">Supported</a></li>
 			<li><a href="<?= $createdurl ?>" data-theme="c">Created</a></li>
 		</ul>
 		</div><!-- /navbar -->
 
 <?php
 	if(isset($_GET["category"])){
-		$query = sprintf("select *, issues.id as iid, issues.name as iname from issues, categories, userstoissues where issues.category_id = '%s' and categories.id = '%s' and issues.id = userstoissues.issue_id and userstoissues.user_id = '%s'", mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_SESSION["userid"]));
+		$query = sprintf("select *, issues.id as iid, issues.name as iname from issues, categories where issues.category_id = '%s' and categories.id = '%s'", mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_GET["category"]));
 	}else{
-		$query = sprintf("select *, issues.id as iid, categories.id as cid, issues.name as iname, categories.name as cname from issues,categories, userstoissues where issues.category_id = categories.id and issues.id = userstoissues.issue_id and userstoissues.user_id = '%s'", mysql_real_escape_string($_SESSION["userid"]));
+		$query = "select *, issues.id as iid, categories.id as cid, issues.name as iname, categories.name as cname from issues,categories where issues.category_id = categories.id";
 	}
-
 	$output = "<a href=\"index.php\" data-role=\"button\" data-theme=\"b\">View All Issues</a>";
 	$result = mysql_query($query);
 	$issues = "";
