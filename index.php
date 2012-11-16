@@ -68,16 +68,20 @@ function changeImage()
 {
     var img = document.getElementById("image");
     var link = document.getElementById("link");
-    var title = document.getElementById("title");
+    var featuredTitle = document.getElementById("featuredTitle");
     img.src = images[x];
+    img.style.zIndex = "-1";
+    link.href = "issues.php?id="+ids[x];
+    featuredTitle.innerHTML = titles[x];
+    featuredTitle.style.zIndex="1";
     x++;
 
     if(x >= images.length){
         x = 0;
     } 
 
-    fadeImg(img, 100, true);
-    setTimeout("changeImage()", 10000);
+    //fadeImg(img, 100, true);
+    setTimeout("changeImage()", 5000);
 }
 
 function fadeImg(el, val, fade){
@@ -89,11 +93,14 @@ function fadeImg(el, val, fade){
 
     if(val > 0 && val < 100){
         el.style.opacity = val / 100;
-        setTimeout(function(){fadeImg(el, val, fade);}, 10);
+        el.style.zIndex = "-1";
+        setTimeout(function(){fadeImg(el, val, false);}, 10);
     }
 }
 
 var images = [];
+var ids = [];
+var titles = []; 
 
 images[0] = "<?= $image1 ?>";
 images[1] = "<?= $image2 ?>";
@@ -104,7 +111,7 @@ ids[2] = "<?= $id3 ?>";
 titles[0] = "<?= $title1 ?>";
 titles[1] = "<?= $title2 ?>";
 titles[2] = "<?= $title3 ?>";
-setTimeout("changeImage()", 10000);
+setTimeout("changeImage()", 5000);
 </script>
 
 <span class="status"><?= $status; ?></span>
@@ -113,11 +120,11 @@ setTimeout("changeImage()", 10000);
 				<b>FEATURED</b>
 				<br />
 				<br />
-				<a id="link" href="issues.php?id=<?= $id ?>">
+				<a id="link" href="issues.php?id=<?= $id1 ?>">
 				<img id="image" class="resize" src="<?= $image1 ?>"></img>
 				</a>
 				<br />
-				<p id="title" class="title"><?= $name ?></p>
+				<p id="featuredTitle" class="title"><?= $title1 ?></p>
 				<br />
 			</center>
 		</div>

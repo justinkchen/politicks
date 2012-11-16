@@ -90,7 +90,7 @@
 		<table width="100%">
 			<tr>
 				<td colspan="2">
-					<img src="<?= $image ?>" width="100%" height="150px"></img>
+					<img id="issueimg" src="<?= $image ?>" width="100%" height="150px"></img>
 				</td>
 			</tr>
 			<tr>
