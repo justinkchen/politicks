@@ -2,6 +2,7 @@
 	<!-- /header -->
 
 	<div data-role="content">	
+
 <?php
 	$status = "";
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -20,74 +21,120 @@
 	}else if (isset($_GET["status"]) && $_GET["status"] == "addsuccess"){
 		$status = "Successfully added an issue!<br /><br />";
 	}
-?>
-		<span class="status"><?= $status; ?></span>
-		<div data-role="navbar">
-		<ul>
-			<li><a href="index.php" data-theme="c" class="ui-btn-active ui-state-persist">Featured</a></li>
-			<li><a href="supportedissues.php" data-theme="c">Supported</a></li>
-			<li><a href="createdissues.php" data-theme="c">Created</a></li>
-		</ul>
-		</div><!-- /navbar -->
 
-		<h3> Welcome to Politicks! <br /> Your resource for making change in the world! </h3>
-
-		<br />
-
-<?php
-	if(isset($_GET["category"])){
-		$query = sprintf("select *, issues.id as iid, issues.name as iname from issues, categories where issues.category_id = '%s' and categories.id = '%s'", mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_GET["category"]));
-		$output = "<a href=\"index.php\" data-role=\"button\" data-theme=\"b\">View All Issues</a>";
-	}else{
-		$query = "select *, issues.id as iid, categories.id as cid, issues.name as iname, categories.name as cname from issues,categories where issues.category_id = categories.id";
-		$output = "";
-	}
+	// Getting Featured Issues
+	$query = sprintf("select * from issues");
 	$result = mysql_query($query);
-	$issues = "";
 	$issuesgrid = "";
 	$issuesgridstyle = "";
 	$numissues = mysql_num_rows($result);
-	if($numissues == 0){
-		$issues = "<center>No issues found matching that criteria</center><br /><br />";
-	}
-	while ($row=mysql_fetch_array($result)) { 
-	    $id = $row["iid"]; 
-	    $name = $row["iname"]; 
-	    $description = $row["description"];
-	    $icon = $row["icon"];
-	    $issues .= "<li><a href=\"issues.php?id=".$id."\">".
-				"<img src=\"".$icon."\" />".
-				"<h3>".$name."</h3>".
-				"<p>".$description."</p>".
-				"</a>".
-				"</li>"; 
+	$count = 0;
+	while ($row=mysql_fetch_array($result)) {
+		if ($count < 3){ 
+		    $id = $row["id"]; 
+		    $name = $row["name"]; 
+		    $description = $row["description"];
+		    $countstr = (string)$count;
+		    if ($count == 0){
+		    	$image1 = $row["image"];
+		    	$id1 = $row["id"];
+		    	$title1 = $row["name"];
+		    }else if($count == 1){
+		    	$image2 = $row["image"];
+		    	$id2 = $row["id"];
+		    	$title2 = $row["name"];
+		    }else{
+				$image3 = $row["image"];
+				$id3 = $row["id"];
+				$title3 = $row["name"];
+		    }
+		    $count += 1;
+		}else{
+			break;
+		}
 	} 
 	
 	$query = "select * from categories";
 	$result = mysql_query($query);
 	while ($row=mysql_fetch_array($result)){
 		$issuesgridstyle .= "#".$row["name"]." .ui-icon { background:  url(".$row["icon"].") 50% 50% no-repeat; background-size: 26px 26px; }";
-		$issuesgrid .= "<li><a href=\"index.php?category=".$row["id"]."\" id=\"".$row["name"]."\" data-icon=\"custom\" data-theme=\"c\">".$row["name"]."</a></li>";
+		$issuesgrid .= "<li><a href=\"featuredissues.php?category=".$row["id"]."\" id=\"".$row["name"]."\" data-icon=\"custom\" data-theme=\"c\">".$row["name"]."</a></li>";
 	}
 ?>
 
+<script type="text/javascript">
+x = 0;
+function changeImage()
+{
+    var img = document.getElementById("image");
+    var link = document.getElementById("link");
+    var featuredTitle = document.getElementById("featuredTitle");
+    img.src = images[x];
+    img.style.zIndex = "-1";
+    link.href = "issues.php?id="+ids[x];
+    featuredTitle.innerHTML = titles[x];
+    featuredTitle.style.zIndex="1";
+    x++;
 
-		<div class="content-primary">	
-		<ul data-role="listview" data-split-icon="arrow-r" data-theme="c" data-split-theme="d" data-filter="true" data-filter-placeholder="Search Issues...">
-			<?= $issues; ?>
-		</ul>
+    if(x >= images.length){
+        x = 0;
+    } 
 
-		<br />
+    //fadeImg(img, 100, true);
+    setTimeout("changeImage()", 5000);
+}
 
+function fadeImg(el, val, fade){
+    if(fade === true){
+        val--;
+    }else{
+        val ++;
+    }
+
+    if(val > 0 && val < 100){
+        el.style.opacity = val / 100;
+        el.style.zIndex = "-1";
+        setTimeout(function(){fadeImg(el, val, false);}, 10);
+    }
+}
+
+var images = [];
+var ids = [];
+var titles = []; 
+
+images[0] = "<?= $image1 ?>";
+images[1] = "<?= $image2 ?>";
+images[2] = "<?= $image3 ?>";
+ids[0] = "<?= $id1 ?>";
+ids[1] = "<?= $id2 ?>";
+ids[2] = "<?= $id3 ?>";
+titles[0] = "<?= $title1 ?>";
+titles[1] = "<?= $title2 ?>";
+titles[2] = "<?= $title3 ?>";
+setTimeout("changeImage()", 5000);
+</script>
+
+<span class="status"><?= $status; ?></span>
+		<div class="featured">
+			<center>
+				<b>FEATURED</b>
+				<br />
+				<br />
+				<a id="link" href="issues.php?id=<?= $id1 ?>">
+				<img id="image" class="resize" src="<?= $image1 ?>"></img>
+				</a>
+				<br />
+				<p id="featuredTitle" class="title"><?= $title1 ?></p>
+				<br />
+			</center>
+		</div>
 		<style>	
 			.nav-glyphish-example .ui-btn .ui-btn-inner { padding-top: 40px !important; }
 			.nav-glyphish-example .ui-btn .ui-icon { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
 			<?= $issuesgridstyle; ?>
 		</style>
-		<?php if(isset($_GET["category"])){ ?>
-			<a href="index.php" data-role="button" data-theme="c">All Issues</a>
-		<?php } ?>
-		<br />
+
+		<a href="featuredissues.php" data-role="button" data-theme="c">All Issues</a>
 		<div data-role="footer" class="nav-glyphish-example">
 			<div data-role="navbar" class="nav-glyphish-example" data-grid="a">
 			<ul>
@@ -95,8 +142,7 @@
 			</ul>
 			</div>
 		</div>
-		<?= $output; ?>
-		</div>
+
 	</div><!-- /content -->
 
 <?php include_once("footer.php") ?>

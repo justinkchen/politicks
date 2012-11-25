@@ -3,17 +3,30 @@
 
 	<div data-role="content">	
 <?php
+	$status = "";
 	checkLogin();
+	if (isset($_GET["status"]) && $_GET["status"] == "addsuccess"){
+		$status = "Successfully added an issue!<br /><br />";
+	}
+
+	if(isset($_GET["category"])){
+		$featuredurl = sprintf("featuredissues.php?category=%s",$_GET["category"]);
+		$supportedurl = sprintf("supportedissues.php?category=%s",$_GET["category"]);
+		$createdurl = sprintf("createdissues.php?category=%s",$_GET["category"]);
+	}else{
+		$featuredurl = sprintf("featuredissues.php");
+		$supportedurl = sprintf("supportedissues.php");
+		$createdurl = sprintf("createdissues.php");		
+	}
 ?>
+		<span class="status"><?= $status; ?></span>
 		<div data-role="navbar">
 		<ul>
-			<li><a href="index.php" data-theme="c">Featured</a></li>
-			<li><a href="supportedissues.php" data-theme="c">Supported</a></li>
-			<li><a href="createdissues.php" data-theme="c" class="ui-btn-active ui-state-persist">Created</a></li>
+			<li><a href="<?= $featuredurl ?>" data-theme="c">Featured</a></li>
+			<li><a href="<?= $supportedurl ?>" data-theme="c">Supported</a></li>
+			<li><a href="<?= $createdurl ?>" data-theme="c" class="ui-btn-active ui-state-persist">Created</a></li>
 		</ul>
 		</div><!-- /navbar -->
-
-		<br />
 
 <?php
 	if(isset($_GET["category"])){
@@ -21,59 +34,45 @@
 	}else{
 		$query = sprintf("select *, issues.id as iid, categories.id as cid, issues.name as iname, categories.name as cname from issues,categories where issues.category_id = categories.id and issues.user_id = '%s'", mysql_real_escape_string($_SESSION["userid"]));
 	}
+	$output = "<a href=\"index.php\" data-role=\"button\" data-theme=\"b\">View All Issues</a>";
 	$result = mysql_query($query);
 	$issues = "";
-	$issuesgrid = "";
-	$issuesgridstyle = "";
 	$numissues = mysql_num_rows($result);
 	if($numissues == 0){
 		$issues = "<center>No issues found matching that criteria</center><br /><br />";
 	}
+	$count = 0;
 	while ($row=mysql_fetch_array($result)) { 
 	    $id = $row["iid"]; 
 	    $name = $row["iname"]; 
 	    $description = $row["description"];
 	    $icon = $row["icon"];
-	    $issues .= "<li><a href=\"issues.php?id=".$id."\">".
-				"<img src=\"".$icon."\" />".
-				"<h3>".$name."</h3>".
-				"<p>".$description."</p>".
-				"</a>".
-				"<a href=\"editissue.php?id=".$id."\"></a>".
-				"</li>"; 
+	    $image = $row["image"];
+	    if ($count % 2 == 0){
+	    	$block = "<div class='ui-block-a'>";
+	    }else{
+	    	$block = "<div class='ui-block-b'>";
+	    }
+	    $issues .= "<a href=\"editissue.php?id=".$id."\">".$block."<center>".
+				"<img class=\"grid\" src=\"".$image."\" />".
+				"<p class=\"title\">".$name."</p>".
+				"</center>".
+				"</div></a>";
+		$count += 1; 
 	} 
-	
-	$query = "select * from categories";
-	$result = mysql_query($query);
-	while ($row=mysql_fetch_array($result)){
-		$issuesgridstyle .= "#".$row["name"]." .ui-icon { background:  url(".$row["icon"].") 50% 50% no-repeat; background-size: 26px 26px; }";
-		$issuesgrid .= "<li><a href=\"createdissues.php?category=".$row["id"]."\" id=\"".$row["name"]."\" data-icon=\"custom\" data-theme=\"c\">".$row["name"]."</a></li>";
-	}
 ?>
 
+
 		<div class="content-primary">	
-		<ul data-role="listview" data-split-icon="gear" data-theme="c" data-split-theme="d" data-filter="true" data-filter-placeholder="Search Issues...">
+		<center>
+		<br />
+		<div class="ui-grid-a">
 			<?= $issues; ?>
-		</ul>
-
-		<br />
-
-		<style>	
-			.nav-glyphish-example .ui-btn .ui-btn-inner { padding-top: 40px !important; }
-			.nav-glyphish-example .ui-btn .ui-icon { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
-			<?= $issuesgridstyle; ?>
-		</style>
-		<?php if(isset($_GET["category"])){ ?>
-			<a href="index.php" data-role="button" data-theme="c">All Issues</a>
-		<?php } ?>
-		<br />
-		<div data-role="footer" class="nav-glyphish-example">
-			<div data-role="navbar" class="nav-glyphish-example" data-grid="a">
-			<ul>
-				<?= $issuesgrid; ?>
-			</ul>
-			</div>
 		</div>
+		</center>
+
+		<br />
+		<?= $output; ?>
 		</div>
 	</div><!-- /content -->
 

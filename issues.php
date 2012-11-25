@@ -47,6 +47,7 @@
 		$funding = $row["funding"];
 		$description = $row["description"];
 		$likes = $row["likes"];
+		$image = $row["image"];
 
 		// Handle Comments
 		if (isset($_POST["comment"])){
@@ -88,9 +89,11 @@
 ?>
 		<table width="100%">
 			<tr>
-				<td>
-					<img src="images/icons/178-city.png" width="60px" height="60px"></img>
+				<td colspan="2">
+					<img id="issueimg" src="<?= $image ?>" width="100%" height="150px"></img>
 				</td>
+			</tr>
+			<tr>
 				<td>
 					<table>
 					<tr><td>
@@ -118,7 +121,7 @@
 						<input type="hidden" name="cbt" value="Return to Politicks">
 						<input type="hidden" name="currency_code" value="USD">
 						<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHosted">
-						<input type="hidden" name="notify_url" value="https://replacelater.com">
+						<input type="hidden" name="notify_url" value="http://replacelater.com">
 						<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 						<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 						</form>
