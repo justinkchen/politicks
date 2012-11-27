@@ -22,17 +22,29 @@ img.resize{
 }
 
 img {
-	border-radius: 15px;
+	border-radius: 0px;
 }
 
 #issueimg{
-	border-radius: 15px;
+	border-radius: 0px;
 }
 
 img.grid {
 	width:100%;
 	height:150px;
 }
+
+Body {Background-Color:#333;
+		margin:0px;}
+
+#Header {background-color:#CCC;
+
+            Width: 100%;
+
+            height: 30px;
+
+            }
+
 
 p.title{
 	margin-top:-50px;

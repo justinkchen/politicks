@@ -1,7 +1,7 @@
 <?php include_once("header.php") ?>
 	<!-- /header -->
 
-	<div data-role="content">	
+	<div data-role="fullscreen">	
 <?php
 	$status = "";
 	checkLogin();
@@ -48,16 +48,34 @@
 	    $description = $row["description"];
 	    $icon = $row["icon"];
 	    $image = $row["image"];
-	    if ($count % 2 == 0){
-	    	$block = "<div class='ui-block-a'>";
-	    }else{
-	    	$block = "<div class='ui-block-b'>";
-	    }
-	    $issues .= "<a href=\"issues.php?id=".$id."\">".$block."<center>".
-				"<img class=\"grid\" src=\"".$image."\" />".
-				"<p class=\"title\">".$name."</p>".
+	    $funding = $row["funding"];
+	    if( $count%3 == 0) $color="#585858 ";
+	    else if ( $count%3 == 1) $color="green";
+	     else $color="#FF6600";
+
+	   
+	    $issues .= 
+	    "<div style=\"width:100%; background-color:".$color.";\" >".
+				
+
+									"<span style=\"  padding:5px; font-family: times, serif;width: 70%; float: left; text-align:left; color: #fff; word-wrap: break-word;  \" >".$name." </span>".
+									"<span style=\"  padding:5px; width: 20%; float: right; text-align:right; color: #fff; word-wrap: break-word;  \" >$".$funding." </span>".
+
+				"<div style=\"clear:both\"></div>".
+				"</div>".
+	    
+	    "<a style=\"line-height:0;\" href=\"issues.php?id=".$id."\">".$block."<center>".
+	    
+	    
+	    
+				"<img style=\"border-radius:0px; line-height: 0; height:160px;\" class=\"grid\" src=\"".$image."\" />".
+
 				"</center>".
-				"</div></a>";
+				
+
+				"</a>";
+				
+
 		$count += 1; 
 	} 
 ?>
