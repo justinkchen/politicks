@@ -20,13 +20,16 @@
 	}
 ?>
 		<span class="status"><?= $status; ?></span>
-		<div data-role="navbar">
+		<div style="width:100%;height:100%; vertical-align: middle;">  
+
+		<div data-role="navbar" style="  margin:10px auto;">
 		<ul>
-			<li><a href="<?= $featuredurl ?>" data-theme="c" class="ui-btn-active ui-state-persist">Featured</a></li>
-			<li><a href="<?= $supportedurl ?>" data-theme="c">Supported</a></li>
-			<li><a href="<?= $createdurl ?>" data-theme="c">Created</a></li>
+			<li><a href="<?= $featuredurl ?>" style="background: #B0B0B0;"  data-theme="c" class="ui-btn-active ui-state-persist">FEATURED</a></li>
+			<li><a href="<?= $supportedurl ?>"  style="background: #B0B0B0;" data-theme="c" >SUPPORTED</a></li>
+			<li><a href="<?= $createdurl ?>" style="background: #B0B0B0;" data-theme="c" ">CREATED</a></li>
 		</ul>
 		</div><!-- /navbar -->
+		</div>
 
 <?php
 	if(isset($_GET["category"])){
@@ -49,16 +52,16 @@
 	    $icon = $row["icon"];
 	    $image = $row["image"];
 	    $funding = $row["funding"];
-	    if( $count%3 == 0) $color="#585858 ";
-	    else if ( $count%3 == 1) $color="green";
-	     else $color="#FF6600";
+	    if( $count%3 == 0) $color="green ";
+	    else if ( $count%3 == 1) $color=" #FF6600"; 
+	     else $color="#585858";
 
 	   
 	    $issues .= 
-	    "<div style=\"width:100%; background-color:".$color.";\" >".
+	    "<div class=\"shadow\" style=\"width:100%; background-color:".$color.";\" >".
 				
 
-									"<span style=\"  padding:5px; font-family: times, serif;width: 70%; float: left; text-align:left; color: #fff; word-wrap: break-word;  \" >".$name." </span>".
+									"<span style=\"  padding:5px; font-family:'Old Standard TT';width: 70%; float: left; text-align:left; color: #fff; word-wrap: break-word;  \" >".$name." </span>".
 									"<span style=\"  padding:5px; width: 20%; float: right; text-align:right; color: #fff; word-wrap: break-word;  \" >$".$funding." </span>".
 
 				"<div style=\"clear:both\"></div>".
@@ -83,7 +86,6 @@
 
 		<div class="content-primary">	
 		<center>
-		<br />
 		<div class="ui-grid-a">
 			<?= $issues; ?>
 		</div>
