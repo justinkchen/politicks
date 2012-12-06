@@ -52,31 +52,57 @@
 	    $icon = $row["icon"];
 	    $image = $row["image"];
 	    $funding = $row["funding"];
+	    $funding = $row["funding"];
+	    $category = $row["category_ids"];
 	    if( $count%3 == 0) $color="green ";
 	    else if ( $count%3 == 1) $color=" #FF6600"; 
 	     else $color="#585858";
 
 	   
 	    $issues .= 
-	    "<div class=\"shadow\" style=\"width:100%; background-color:".$color.";\" >".
+	    	    
+	    	    "<div class=\"shadow\" style=\" width:100%; height: 110px; background-color:white ; border-bottom: 1px solid grey;\" >".
+
+	  #  "<a style=\"display:block; width:100%; line-height:0;\" href=\"issues.php?id=".$id."\">".$block.
+				
+					"<div style=\"display:block; width:100%; line-height:0; position:relative; \">".
+					"<span style=\" position:absolute; left:5px;top:23px;font-family:'Arial'; font-size: .75em; color: #aaa; \" >WEB & SOCIAL</span>".
+						"<span style=\"position:absolute; left:5px;top:33px;\"><img style=\" float:left; text-align:left; width:70px; height:70px;\" src=\"".$image."\" /></span>".
+							
+							
+							
+							"<div style=\" position:absolute;\">".
+							"<div style=\" width:200px; height:3em; position:relative; line-height: 1em; padding-left:10px; padding-right:20px; overflow: hidden; top: 33px; text-align:left; left: 69px; word-wrap:break-word; font-family:'Arial';font-size: 1em;\">".$name."".
+
+ "<br /><div style=\"position:relative;  height:1em; font-size:.7em; padding-right:20px; float:left; text-align:left;width:200px; \">Supported by: Barack Obama</div>".
+
+  "</div>".
+							
+							
+							
+							"</div>".
+								
+							"<span style=\"position:relative; top: 26px; right:-120px;\">$</span><div class=\"box\" style=\" padding-top:7px; width: 60px; height:15px; top: 12px; float:right; position: relative;background-color:#ab3fdd;\"><span style=\"font-size:.75em; color:white\">".$funding."</span></div>".
+
+						"</div>".		
+					
+
+"</div>";
+
+#"<span style=\" position:absolute; top: 39px;left:80px; width:180px;font-family:'Arial'; text-align:left;font-size: .75em;  word-wrap:break-word; color: #aaa;  \">asdfasdfasdfasdfsaadsfsdaf".$name."</span>".
+
+								#	"<span style=\"  padding:5px; font-family:'Old Standard TT';width: 70%; float: left; text-align:left; color: #fff; word-wrap: break-word;  \" >".$name." </span>".
+								#	"<span style=\"  padding:5px; width: 20%; float: right; text-align:right; color: #fff; word-wrap: break-word;  \" >$".$funding." </span>".
+#"<span style=\"  padding:5px; font-family:'Old Standard TT';float: left; text-align:left; color: #aaa; \" >".$name." </span>".
+	    
+	    
+	   # "<center>".
+	    
+			#	"<img style=\"border-radius:0px; line-height: 0; height:160px;\" class=\"grid\" src=\"".$image."\" />".
+
+			#	"</center>".
 				
 
-									"<span style=\"  padding:5px; font-family:'Old Standard TT';width: 70%; float: left; text-align:left; color: #fff; word-wrap: break-word;  \" >".$name." </span>".
-									"<span style=\"  padding:5px; width: 20%; float: right; text-align:right; color: #fff; word-wrap: break-word;  \" >$".$funding." </span>".
-
-				"<div style=\"clear:both\"></div>".
-				"</div>".
-	    
-	    "<a style=\"line-height:0;\" href=\"issues.php?id=".$id."\">".$block."<center>".
-	    
-	    
-	    
-				"<img style=\"border-radius:0px; line-height: 0; height:160px;\" class=\"grid\" src=\"".$image."\" />".
-
-				"</center>".
-				
-
-				"</a>";
 				
 
 		$count += 1; 
