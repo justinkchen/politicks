@@ -66,13 +66,13 @@
 	  #  "<a style=\"display:block; width:100%; line-height:0;\" href=\"issues.php?id=".$id."\">".$block.
 				
 					"<div style=\"display:block; width:100%; line-height:0; position:relative; \">".
-					"<span style=\" position:absolute; left:5px;top:23px;font-family:'Arial'; font-size: .75em; color: #aaa; \" >WEB & SOCIAL</span>".
+					"<span style=\" position:absolute; left:5px;top:23px;font-family:'Arial'; font-size: .75em; color: red; \" >WEB & SOCIAL</span>".
 						"<span style=\"position:absolute; left:5px;top:33px;\"><img style=\" float:left; text-align:left; width:70px; height:70px;\" src=\"".$image."\" /></span>".
 							
 							
 							
 							"<div style=\" position:absolute;\">".
-							"<div style=\" width:200px; height:3em; position:relative; line-height: 1em; padding-left:10px; padding-right:20px; overflow: hidden; top: 33px; text-align:left; left: 69px; word-wrap:break-word; font-family:'Arial';font-size: 1em;\">".$name."".
+							"<div style=\" width:200px; height:3em; position:relative; line-height: 1em; padding-left:10px; padding-right:20px; overflow: hidden; top: 33px; text-align:left; left: 69px; word-wrap:break-word; font-family:'Lobster';font-size: 1em;\">".$name."".
 
  "<br /><div style=\"position:relative;  height:1em; font-size:.7em; padding-right:20px; float:left; text-align:left;width:200px; \">Supported by: Barack Obama</div>".
 
@@ -82,7 +82,7 @@
 							
 							"</div>".
 								
-							"<span style=\"position:relative; top: 26px; right:-120px;\">$</span><div class=\"box\" style=\" padding-top:7px; width: 60px; height:15px; top: 12px; float:right; position: relative;background-color:#ab3fdd;\"><span style=\"font-size:.75em; color:white\">".$funding."</span></div>".
+							"<span style=\"position:relative; top: 90px; right:-120px;\">$</span><div class=\"box\" style=\" padding-top:7px; width: 60px; height:15px; top:75px; float:right; position: relative;background-color:green;\"><span style=\"font-size:.75em; color:white\">".$funding."</span></div>".
 
 						"</div>".		
 					
