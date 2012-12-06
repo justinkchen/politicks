@@ -49,17 +49,23 @@
 	    $description = $row["description"];
 	    $icon = $row["icon"];
 	    $image = $row["image"];
-	    if ($count % 2 == 0){
-	    	$block = "<div class='ui-block-a'>";
-	    }else{
-	    	$block = "<div class='ui-block-b'>";
-	    }
-	    $issues .= "<a href=\"issues.php?id=".$id."\">".$block."<center>".
-				"<img class=\"grid\" src=\"".$image."\" />".
-				"<p class=\"title\">".$name."</p>".
-				"</center>".
-				"</div></a>";
-		$count += 1; 
+	    // if ($count % 2 == 0){
+	    // 	$block = "<div class='ui-block-a'>";
+	    // }else{
+	    // 	$block = "<div class='ui-block-b'>";
+	    // }
+	   //  $issues .= "<a href=\"issues.php?id=".$id."\">".$block."<center>".
+				// "<img class=\"grid\" src=\"".$image."\" />".
+				// "<p class=\"title\">".$name."</p>".
+				// "</center>".
+				// "</div></a>";
+	    $issues .= "<li><a href=\"issues.php?id=".$id."\">".
+				"<img src=\"".$image."\" class=\"list\" />".
+				"<h3>".$name."</h3>".
+				"<p>".$description."</p>".
+				"</a>".
+				"</li>"; 
+		// $count += 1; 
 	} 
 ?>
 
@@ -67,9 +73,14 @@
 		<div class="content-primary">	
 		<center>
 		<br />
-		<div class="ui-grid-a">
+		<?php 
+		//<div class="ui-grid-a">
+		//	$issues;
+		//</div>
+		?>
+			<ul data-role="listview" data-split-icon="arrow-r" data-theme="c" data-split-theme="d" data-filter="true" data-filter-placeholder="Search Issues...">
 			<?= $issues; ?>
-		</div>
+			</ul>
 		</center>
 
 		<br />

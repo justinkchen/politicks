@@ -8,33 +8,12 @@
 	$pageURL = "http://";
 	if(isset($_GET["id"])){
 
-		// Handle Donating
-		$q = sprintf("select * from userstoissues where issue_id='%s' and user_id='%s'", mysql_real_escape_string($_GET['id']), mysql_real_escape_string($_SESSION["userid"]));
-		$result = mysql_query($q);
-		if(mysql_num_rows($result) == 0){
-			$output = 	"<input type=\"submit\" value=\"Donate\"></input>";
-			$alreadyDonated = false;
-		}else{
-			$output = 	"<input type=\"submit\" value=\"Donate Again\"></input>";
-			$alreadyDonated = true;
-		}
-		if (isset($_POST["amount"])){
-			$query = sprintf("select * from issues where id='%s'",mysql_real_escape_string($_GET["id"]));
-			$result = mysql_query($query);
-			$row = mysql_fetch_array($result);
-			$currentFunding = doubleval($row["funding"]);
-			$currentSupporters = intval($row["likes"]);
-			$newFunding = number_format($currentFunding + doubleval(number_format($_POST["amount"],2)), 2);
-			if (!$alreadyDonated){
-				$newSupporters = $currentSupporters + 1;
-			}else{
-				$newSupporters = $currentSupporters;
-			}
-			$query = sprintf("update issues set funding='%s', likes='%s' where id='%s'",mysql_real_escape_string($newFunding), mysql_real_escape_string($newSupporters), mysql_real_escape_string($_GET['id']));
-			$result = mysql_query($query);
-			$query = sprintf("insert into userstoissues (issue_id, user_id) values ('%s', '%s')",mysql_real_escape_string($_GET['id']), mysql_real_escape_string($_SESSION['userid']));
-			$result = mysql_query($query);
-		}
+		// $alreadyDonated = donationResponse();
+		// if($alreadyDonated){
+		// 	$output = 	"<input type=\"submit\" value=\"Donate Again\"></input>";
+		// }else{
+		// 	$output = 	"<input type=\"submit\" value=\"Donate\"></input>";
+		// }
 
 		// List Issue information
 		$query = sprintf("select * from issues where id='%s'",mysql_real_escape_string($_GET["id"]));
@@ -65,10 +44,7 @@
 			$urow = mysql_fetch_array($uresult);
 		    $name = $urow["username"]; 
 		    $message = $row["message"];
-		    $comments .= "<li>".$message."".
-					"<span class=\"ui-li-count\">User: ".$name."</span>".
-					"</a>".
-					"</li>"; 
+		    $comments .= "<li><p class='commentTitle'>User: ".$name."</p><p class='commentBody'>".$message."</p>"."</li>"; 
 		} 
 		if ($comments == ""){
 			$comments = "<center>No comments yet</center>";
@@ -78,20 +54,24 @@
 		if ($_SERVER["SERVER_PORT"] != "80")
 		{
 				$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-				} 
+		} 
 		else 
 		{
 			$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
 		}
+		$path_parts = pathinfo($pageURL);
+		$basepath = $path_parts['dirname'];
+		$notifyURL = $basepath."/notifyDonation.php";
+
 	}else{
   		redirect_to_URL("index.php");
 	}
 ?>
 		<table width="100%">
 			<tr>
-				<td colspan="2">
-					<img id="issueimg" src="<?= $image ?>" width="100%" height="150px"></img>
-				</td>
+				<center>
+					<img id="issueimg" src="<?= $image ?>"></img>
+				</center>
 			</tr>
 			<tr>
 				<td>
@@ -107,7 +87,6 @@
 					</td></tr>
 					</table>
 				</td>
-
 				<td>
 					<table>
 					<tr><td>
@@ -116,12 +95,13 @@
 						<input type="hidden" name="business" value="donations@politicks.com"> <!-- TG7Q5GHMSDZR4 -->
 						<input type="hidden" name="lc" value="US">
 						<input type="hidden" name="item_name" value="Politicks donation to: <?= $issue_name ?> ">
-						<input type="hidden" name="return" value="<?= $pageURL; ?>">
+						<input type="hidden" name="item_number" value="<?= $_GET['id']; ?> ">
+						<input type="hidden" name="return" value="<?= $notifyURL ?>">
 						<input type="hidden" name="cancel_return" value="<?= $pageURL; ?>">
 						<input type="hidden" name="cbt" value="Return to Politicks">
 						<input type="hidden" name="currency_code" value="USD">
 						<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHosted">
-						<input type="hidden" name="notify_url" value="http://replacelater.com">
+						<input type="hidden" name="notify_url" value="<?= $notifyURL ?>">
 						<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 						<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 						</form>
@@ -137,25 +117,36 @@
 			<?= $description; ?>
 		</p>
 		<hr />
-		<br />
 <?php
 	$query = sprintf("select * from proposedsolutions where issue_id='%s'",mysql_real_escape_string($_GET["id"]));
 	$result = mysql_query($query);
-	$row = mysql_fetch_array($result);
-	if (mysql_num_rows($result)){
-		$output = "<a href=\"solution.php?issue_id=".$_GET['id']."\" data-role=\"button\">Show Proposed Solution</a>";
-	}else{
+	$output = "";
+	while ($row = mysql_fetch_array($result)){
+		$query = sprintf("select * from politicians where id='%s'", mysql_real_escape_string($row["politician_id"]));
+		$politician_result = mysql_query($query);
+		$politician_row = mysql_fetch_array($politician_result);
+		$output .= "<li><a href=\"solution.php?issue_id=".$_GET['id']."\">".$row["solution"]."<p class='politicianName'>".$politician_row["name"]."</p></a></li>";
+	}
+	if(mysql_num_rows($result) == 0){
 		$output = "<center>No Proposed Solutions yet</center>";
 	}
 ?>
-		<?= $output; ?>
+		<h4>Solutions</h4>
+		<div>
+		<ul data-role="listview" data-theme="c">
+			<?= $output; ?>
+		</ul>
+		</div>
 		<br />
 		<hr />
+		<h4>Comments</h4>
 		<a href="comment.php?id=<?=$_GET['id'];?>" data-role="button" data-theme="c">Leave a Comment</a>
 		<br />
-		<ul data-role="listview" data-theme="c" >
-			<?= $comments; ?>
-		</ul>
+		<div class="comments">
+			<ul data-role="listview" data-theme="c" >
+				<?= $comments; ?>
+			</ul>
+		</div>
 	</div><!-- /content -->
 
 

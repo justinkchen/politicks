@@ -5,17 +5,7 @@
 
 <?php
 	$status = "";
-	if ($_SERVER["REQUEST_METHOD"] == "POST"){
-		$uname = $pword = "";
-		if (isset($_POST["username"]) && isset($_POST["password"])){
-			$uname = $_POST["username"];
-			$pword = $_POST["password"];
-		}
-		verifyLogin($uname, $pword);
-	}else{
-		$dispError = false;
-		checkLogin($dispError);
-	}
+
 	if (isset($_GET["status"]) && $_GET["status"] == "regsuccess"){
 		$status = "Successfully created account! Welcome!<br /><br />";
 	}else if (isset($_GET["status"]) && $_GET["status"] == "addsuccess"){

@@ -12,11 +12,14 @@
 	while ($row=mysql_fetch_array($result)) { 
 	    $id = $row["id"]; 
 	    $name = $row["name"]; 
+	    $image = $row["image"];
 	    $description = $row["description"];
 	    $followers = $row["followers"];
+	    $title = $row["title"];
 	    $politicians .= "<li><a href=\"politicianprofile.php?id=".$id."\">".
-				"".$name."".
-				"<span class=\"ui-li-count\">".$followers." Followers</span>".
+	    		"<img src=\"".$image."\" class=\"list\" />".
+				"".$name." - ".$title."".
+				"<p class='followers'>".$followers." Followers</p>".
 				"</a>".
 				"</li>"; 
 	} 

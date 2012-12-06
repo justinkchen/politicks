@@ -25,25 +25,31 @@
 		$issues = "<center>No issues found matching that criteria</center><br /><br />";
 	}
 	while ($row=mysql_fetch_array($result)) { 
-	    $issue_id = $row["issue_id"];
-
-		$categoryq = sprintf("select * from categories where id='%s'", mysql_real_escape_string($row["category_id"]));
-		$categoryresult = mysql_query($categoryq);
-		$categoryrow=mysql_fetch_array($categoryresult);
+		$issue_id = $row["issue_id"]; 
 		$issueq = sprintf("select * from issues where id='%s'", mysql_real_escape_string($issue_id));
 		$issueresult = mysql_query($issueq);
 		$issuerow=mysql_fetch_array($issueresult);
-
 	    $name = $issuerow["name"]; 
 	    $description = $issuerow["description"];
-
-	    $icon = $categoryrow["icon"];
+	    $image = $issuerow["image"];
+	    // if ($count % 2 == 0){
+	    // 	$block = "<div class='ui-block-a'>";
+	    // }else{
+	    // 	$block = "<div class='ui-block-b'>";
+	    // }
+	   //  $issues .= "<a href=\"issues.php?id=".$id."\">".$block."<center>".
+				// "<img class=\"grid\" src=\"".$image."\" />".
+				// "<p class=\"title\">".$name."</p>".
+				// "</center>".
+				// "</div></a>";
 	    $issues .= "<li><a href=\"issues.php?id=".$issue_id."\">".
-				"<img src=\"".$icon."\" />".
+				"<img src=\"".$image."\" class=\"list\" />".
 				"<h3>".$name."</h3>".
 				"<p>".$description."</p>".
 				"</a>".
 				"</li>"; 
+
+		// $count += 1; 
 	} 
 
 	$politicianq = sprintf("select * from politicians where id='%s'", mysql_real_escape_string($_GET["pid"]));

@@ -24,7 +24,7 @@ if (isset($_GET["status"])){
 ?>
 	<span class="error"><?= $error; ?></span>
 	<span class="status"><?= $status; ?></span>
-	<form action="index.php" method="post">
+	<form action="verifyLogin.php" method="post">
 		<label for="username">Username:</label>
 		<input type="text" name="username" id="username" data-mini="true" />
 		<label for="password">Password:</label>

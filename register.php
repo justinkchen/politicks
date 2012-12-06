@@ -25,8 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	} else {
 		$user = $_POST["user"];
 	}
-	if (empty($_POST["email"])) {
-		$emailErr = "Please enter an e-mail address";
+	if (empty($_POST["email"]) || !isValidEmail($_POST["email"])) {
+		$emailErr = "Please enter a valid e-mail address";
 	} else {
 		$email = $_POST["email"];
 	}
@@ -97,6 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<input type="submit" value="Create Account"></input>
 	</form>
 	<br />
+	<a href="login.php" data-role="button" data-theme="c">Return to Login Screen</a>
 	<br />
 	<br />
 	<br />

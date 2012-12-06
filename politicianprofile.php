@@ -17,7 +17,8 @@
 		$name = $row["name"];
 		$followers = $row["followers"];
 		$description = $row["description"];
-
+		$image = $row["image"];
+		
 		$issuesgrid = "";
 		$issuesgridstyle = "";
 
@@ -44,7 +45,7 @@
 		<table width="100%">
 			<tr>
 				<td>
-					<img src="images/icons/111-user.png" width="60px" height="60px"></img>
+					<img src="<?= $image ?>" width="60px" height="60px"></img>
 				</td>
 				<td>
 					<table>

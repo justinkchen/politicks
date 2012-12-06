@@ -6,14 +6,12 @@ function verifyLogin($username, $password){;
   $num_results = mysql_num_rows($result);
   $row = mysql_fetch_assoc($result);
 
-  $bcrypt = new Bcrypt(1);
+  $bcrypt = new Bcrypt(5);
   if ($num_results == 1 && $bcrypt->verify($password,$row["password_hash"])){
     login($username);
+    redirect_to_URL("index.php");
     return true;
   }else{
-    // echo "<script type=\"text/javascript\">".
-    //       "window.location = \"login.php?error=badlogin\"".
-    //       "</script>";
     redirect_to_URL("login.php?error=badlogin");
   }
   return false;
@@ -23,9 +21,6 @@ function checkLogin($dispError = true){
   if (isset($_SESSION["username"]) && isset($_SESSION["userid"]) && isset($_SESSION["useremail"])){
     return true;
   }else{
-    // echo "<script type=\"text/javascript\">".
-    //       "window.location = \"login.php?error=notloggedin\"".
-    //       "</script>";
     if($dispError){
       // Display Error message saying to login first
       redirect_to_URL("login.php?error=notloggedin");
@@ -37,7 +32,7 @@ function checkLogin($dispError = true){
 }
 
 function hashPassword($password){
-  $bcrypt = new Bcrypt(1);
+  $bcrypt = new Bcrypt(5);
   return $bcrypt->hash($password);
 }
 
