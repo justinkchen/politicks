@@ -28,6 +28,7 @@ img.resize{
 
 #image{
 	z-index:-1;
+	box-shadow: 0 8px 8px -6px #333;
 }
 
 img {
