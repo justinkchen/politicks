@@ -3,7 +3,7 @@
 
 	<div data-role="content">	
 <?php
-	if(isset($_GET["issue_id"])){
+	if(isset($_GET["issue_id"])  && isset($_GET["politician_id"])){
 		$query = sprintf("select * from proposedsolutions where issue_id='%s'",mysql_real_escape_string($_GET["issue_id"]));
 		$result = mysql_query($query);
 		$row = mysql_fetch_array($result);
@@ -12,7 +12,7 @@
 	  		redirect_to_URL("index.php");
 		}
 
-		$query = sprintf("select * from politicians where id='%s'",mysql_real_escape_string($row["politician_id"]));
+		$query = sprintf("select * from politicians where id='%s'",mysql_real_escape_string($_GET["politician_id"]));
 		$result = mysql_query($query);
 		$row = mysql_fetch_array($result);
 		$politician = $row["name"];
