@@ -32,6 +32,21 @@
 	    $name = $issuerow["name"]; 
 	    $description = $issuerow["description"];
 	    $image = $issuerow["image"];
+	    $funding = $issuerow["funding"];
+
+	    $categoryq = sprintf("select * from categories where id='%s'", mysql_real_escape_string($row["category_id"]));
+	    $categoryresult = mysql_query($categoryq);
+	    $categoryrow = mysql_fetch_array($categoryresult);
+	    $categoryname = $categoryrow["name"];
+
+	    $query = sprintf("select *, p.name as pname from proposedsolutions s, politicians p where s.issue_id='%s' and s.politician_id=p.id",mysql_real_escape_string($issue_id));
+	    $solutionresult = mysql_query($query);
+	    $solutionrow = mysql_fetch_array($solutionresult);
+	    if(mysql_num_rows($solutionresult)){
+	    	$politician = "Supported by: ".$solutionrow["pname"];
+	    }else{
+	    	$politician = "&nbsp;";
+	    }
 	    // if ($count % 2 == 0){
 	    // 	$block = "<div class='ui-block-a'>";
 	    // }else{
@@ -42,11 +57,13 @@
 				// "<p class=\"title\">".$name."</p>".
 				// "</center>".
 				// "</div></a>";
-	    $issues .= "<li><a href=\"issues.php?id=".$issue_id."\">".
+	    $issues .= "<li data-icon=\"false\"><a href=\"issues.php?id=".$issue_id."\">".
+	    		"<span class=\"category\">".strtoupper($categoryname)."</span>".
 				"<img src=\"".$image."\" class=\"list\" />".
-				"<h3>".$name."</h3>".
-				"<p>".$description."</p>".
-				"</a>".
+				"<h3 class=\"issueTitle\">".$name."</h3>".
+				"<p class=\"issuePolitician\">".$politician."</p>".
+				"<p class=\"issueFunding\">$".number_format($funding, 2)."</p>".
+				"<br /><br /></a>".
 				"</li>"; 
 
 		// $count += 1; 

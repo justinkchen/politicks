@@ -16,16 +16,17 @@
 	    $description = $row["description"];
 	    $followers = $row["followers"];
 	    $title = $row["title"];
-	    $politicians .= "<li><a href=\"politicianprofile.php?id=".$id."\">".
+	    $politicians .= "<li data-icon='false'><a href=\"politicianprofile.php?id=".$id."\">".
+	    		"<span class='category'>".$title."</span>".
 	    		"<img src=\"".$image."\" class=\"list\" />".
-				"".$name." - ".$title."".
+				"<h3 class='politicianTitle'>".$name."</h3>".
 				"<p class='followers'>".$followers." Followers</p>".
-				"</a>".
+				"<br /><br /></a>".
 				"</li>"; 
 	} 
 ?>
 		<div class="content-primary">	
-			<ul data-role="listview" data-filter="true" data-filter-placeholder="Search politicians..." data-filter-theme="d"data-theme="d" data-divider-theme="d">
+			<ul data-role="listview" data-filter="true" data-filter-placeholder="Search politicians..." data-filter-theme="d" data-theme="d" data-divider-theme="d">
 				<?= $politicians; ?>
 			</ul>
 			</div>

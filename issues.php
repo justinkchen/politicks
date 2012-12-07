@@ -113,9 +113,9 @@
 		</table>
 
 		<h1>Description</h1>
-		<p>
+		<div class="textbox">
 			<?= $description; ?>
-		</p>
+		</div>
 		<hr />
 <?php
 	$query = sprintf("select * from proposedsolutions where issue_id='%s'",mysql_real_escape_string($_GET["id"]));
@@ -125,7 +125,7 @@
 		$query = sprintf("select * from politicians where id='%s'", mysql_real_escape_string($row["politician_id"]));
 		$politician_result = mysql_query($query);
 		$politician_row = mysql_fetch_array($politician_result);
-		$output .= "<li><a href=\"solution.php?issue_id=".$_GET['id']."\">".$row["solution"]."<p class='politicianName'>".$politician_row["name"]."</p></a></li>";
+		$output .= "<li data-icon='false'><a href=\"solution.php?issue_id=".$_GET['id']."\">".$row["solution"]."<p class='politicianName'>".$politician_row["name"]."</p></a></li>";
 	}
 	if(mysql_num_rows($result) == 0){
 		$output = "<center>No Proposed Solutions yet</center>";

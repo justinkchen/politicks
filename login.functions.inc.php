@@ -49,6 +49,7 @@ function login($username){
   $_SESSION["username"] = $row["username"];
   $_SESSION["userid"] = $row["id"];
   $_SESSION["useremail"] = $row["email"];
+  $_SESSION["userfullname"] = $row["name"];
 }
 
 class Bcrypt {

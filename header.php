@@ -11,6 +11,8 @@ require_once("config.php");
 	<link href='http://fonts.googleapis.com/css?family=Chunkfive' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Cherry+Swash:400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Old+Standard+TT' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
 	<title >Politicks</title> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
@@ -29,7 +31,8 @@ require_once("config.php");
 	<div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 		<a href="info.php" data-role="button" data-theme="c" data-icon="info">Info</a>
 	</div>
-		<h1 class="header">POLITICKS</h1>
+		<!--<h1 class="header">SwingVote</h1>-->
+		<center><img class="header" src="images/swingvoteAppSmall.png"></img></center>
 	<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		<a href="options.php" data-role="button" data-theme="c" data-icon="gear" data-iconpos="notext"></a>
 		<!--<a href="search.php" data-role="button" data-icon="search" data-iconpos="notext"></a>-->

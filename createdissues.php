@@ -30,11 +30,11 @@
 
 <?php
 	if(isset($_GET["category"])){
-		$query = sprintf("select *, issues.id as iid, issues.name as iname from issues, categories where issues.category_id = '%s' and categories.id = '%s' and issues.user_id = '%s'", mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_SESSION["userid"]));
+		$query = sprintf("select *, issues.id as iid, issues.name as iname, categories.name as cname from issues, categories where issues.category_id = '%s' and categories.id = '%s' and issues.user_id = '%s'", mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_GET["category"]), mysql_real_escape_string($_SESSION["userid"]));
 	}else{
 		$query = sprintf("select *, issues.id as iid, categories.id as cid, issues.name as iname, categories.name as cname from issues,categories where issues.category_id = categories.id and issues.user_id = '%s'", mysql_real_escape_string($_SESSION["userid"]));
 	}
-	$output = "<a href=\"index.php\" data-role=\"button\" data-theme=\"b\">View All Issues</a>";
+	$output = "<a href=\"index.php\" data-role=\"button\" data-theme=\"b\">Return Home</a>";
 	$result = mysql_query($query);
 	$issues = "";
 	$numissues = mysql_num_rows($result);
@@ -48,6 +48,18 @@
 	    $description = $row["description"];
 	    $icon = $row["icon"];
 	    $image = $row["image"];
+	    $funding = $row["funding"];
+
+	    $categoryname = $row["cname"];
+
+	    $query = sprintf("select *, p.name as pname from proposedsolutions s, politicians p where s.issue_id='%s' and s.politician_id=p.id",mysql_real_escape_string($id));
+	    $solutionresult = mysql_query($query);
+	    $solutionrow = mysql_fetch_array($solutionresult);
+	    if(mysql_num_rows($solutionresult)){
+	    	$politician = "Supported by: ".$solutionrow["pname"];
+	    }else{
+	    	$politician = "&nbsp;";
+	    }
 	   //  if ($count % 2 == 0){
 	   //  	$block = "<div class='ui-block-a'>";
 	   //  }else{
@@ -58,11 +70,13 @@
 				// "<p class=\"title\">".$name."</p>".
 				// "</center>".
 				// "</div></a>";
-	    $issues .= "<li><a href=\"issues.php?id=".$id."\">".
+	    $issues .= "<li data-icon=\"false\"><a href=\"issues.php?id=".$id."\">".
+	    		"<span class=\"category\">".strtoupper($categoryname)."</span>".
 				"<img src=\"".$image."\" class=\"list\" />".
-				"<h3>".$name."</h3>".
-				"<p>".$description."</p>".
-				"</a><a href=\"editissue.php?id=".$id."\"></a>".
+				"<h3 class=\"issueTitle\">".$name."</h3>".
+				"<p class=\"issuePolitician\">".$politician."</p>".
+				"<p class=\"createdIssueFunding\">$".number_format($funding, 2)."</p>".
+				"<br /><br /></a><a href=\"editissue.php?id=".$id."\"></a>".
 				"</li>"; 
 		// $count += 1; 
 	} 
