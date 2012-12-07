@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 06, 2012 at 10:48 AM
+-- Generation Time: Dec 07, 2012 at 08:56 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.4.3
 
@@ -90,8 +90,8 @@ CREATE TABLE IF NOT EXISTS `issues` (
   `category_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `image` varchar(300) NOT NULL,
-  `latitude` float NOT NULL DEFAULT '0',
-  `longitude` float NOT NULL DEFAULT '0',
+  `latitude` float NOT NULL DEFAULT '37.4257',
+  `longitude` float NOT NULL DEFAULT '-122.194',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
@@ -100,12 +100,12 @@ CREATE TABLE IF NOT EXISTS `issues` (
 --
 
 INSERT INTO `issues` (`id`, `name`, `description`, `funding`, `likes`, `category_id`, `user_id`, `image`, `latitude`, `longitude`) VALUES
-(1, 'Stop polluting pond', 'The pond is getting dirty.  People are littering all over the place and dumptrucks are leaving their messes right next to the pond.  Trash, Inc. is not following city regulations and something needs to be done about it. NOW!', 372.52, 3, 1, 1, 'http://farm5.staticflickr.com/4075/4895313043_aaf1a94603.jpg', 0, 0),
-(2, 'City needs to lower emissions', 'Cars emitting too many harmful chemicals', 0.04, 1, 1, 1, 'http://images.nationalgeographic.com/wpf/media-live/photos/000/001/cache/green-house-factor_177_600x450.jpg', 0, 0),
-(3, 'Hire more teachers', 'Our highschool needs more teachers', 0, 0, 4, 1, 'http://fromoureyes.com/sites/default/files/field/image/Coolest-math-teacher-ever-halloween-costume-hot-teacher_0.jpg', 0, 0),
-(4, 'Work hard, Play harder...', 'We need children to work hard and play harder!', 0, 0, 4, 1, 'http://iamboigenius.com/wp-content/uploads/2012/05/Wiz-Khalifa-Work-Hard-Play-Hard.jpg', 0, 0),
-(5, 'More hospitals around Berkeley', 'People keep getting attacked and we need more hospitals in the area.', 0, 0, 2, 1, 'http://us.123rf.com/400wm/400/400/goodluz/goodluz1209/goodluz120900738/15383749-portrait-of-beautiful-nurse-standing-in-hospital.jpg', 0, 0),
-(6, 'Need more roads', 'Can''t get anywhere', 0.01, 1, 3, 2, 'http://lh5.ggpht.com/abramsv/R2cgzUKUZoI/AAAAAAAABFM/ZlDAC9JKgpk/s640/01_probka.jpg', 0, 0),
+(1, 'Stop polluting pond', 'The pond is getting dirty.  People are littering all over the place and dumptrucks are leaving their messes right next to the pond.  Trash, Inc. is not following city regulations and something needs to be done about it. NOW!', 372.52, 3, 1, 1, 'http://farm5.staticflickr.com/4075/4895313043_aaf1a94603.jpg', 37.4257, -122.194),
+(2, 'City needs to lower emissions', 'Cars emitting too many harmful chemicals', 0.04, 1, 1, 1, 'http://images.nationalgeographic.com/wpf/media-live/photos/000/001/cache/green-house-factor_177_600x450.jpg', 37.4257, -122.194),
+(3, 'Hire more teachers', 'Our highschool needs more teachers', 0, 0, 4, 1, 'http://fromoureyes.com/sites/default/files/field/image/Coolest-math-teacher-ever-halloween-costume-hot-teacher_0.jpg', 67.4257, -122.194),
+(4, 'Work hard, Play harder...', 'We need children to work hard and play harder!', 0, 0, 4, 1, 'http://iamboigenius.com/wp-content/uploads/2012/05/Wiz-Khalifa-Work-Hard-Play-Hard.jpg', 37.4257, -122.194),
+(5, 'More hospitals around Berkeley', 'People keep getting attacked and we need more hospitals in the area.', 0, 0, 2, 1, 'http://us.123rf.com/400wm/400/400/goodluz/goodluz1209/goodluz120900738/15383749-portrait-of-beautiful-nurse-standing-in-hospital.jpg', 37.4257, -122.194),
+(6, 'Need more roads', 'Can''t get anywhere', 0.01, 1, 3, 2, 'http://lh5.ggpht.com/abramsv/R2cgzUKUZoI/AAAAAAAABFM/ZlDAC9JKgpk/s640/01_probka.jpg', 37.4257, -142.194),
 (12, 'Statue of Mayor Chen', 'Some interesting stuff', 0, 0, 6, 1, 'http://images.fineartamerica.com/images-medium-large/plaza-mayor-statue-of-king-philip-iii-horseman-in-madrid-spain-john-a-shiron.jpg', 37.4257, -122.194);
 
 -- --------------------------------------------------------
@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password_hash`) VALUES
-(1, 'Justin Chen', 'test', 'test@test.com', '$2a$05$50XdpiUF2XduHiR5MjvwB.FtMcv2P.wNewQftZHLoyVZvgZfBQQUa'),
+(1, 'Justin Chen', 'testname', 'test@test.com', '$2a$05$50XdpiUF2XduHiR5MjvwB.FtMcv2P.wNewQftZHLoyVZvgZfBQQUa'),
 (6, 'Justin Chen', 'justinkchen', 'justinkchen@stanford.edu', '$2a$05$50XdpiUF2XduHiR5MjvwB.FtMcv2P.wNewQftZHLoyVZvgZfBQQUa'),
 (7, 'Katherine Chen', 'kchen', 'katherine.l.l.chen@gmail.com', '$2a$05$50XdpiUF2XduHiR5MjvwB.FtMcv2P.wNewQftZHLoyV...'),
 (9, 'Katherine Chen', 'katchen', 'kpoppanda@gmail.com', '$2a$05$50XdpiUF2XduHiR5MjvwB.FtMcv2P.wNewQftZHLoyV...'),
